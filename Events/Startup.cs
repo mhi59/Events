@@ -26,8 +26,9 @@ namespace Events
             services.Configure<MongoSettings>(
                 options =>
                 {
-                    options.ConnectionString = Configuration.GetSection("MongoDB:ConnectionString").Value;
-                    options.Database = Configuration.GetSection("MongoDB:Database").Value;
+                    options.ConnectionString = Configuration.GetSection("MongoDB:ConnectionString").Value; //Injection de dépendance pour la connexion
+                    options.Database = Configuration.GetSection("MongoDB:Database").Value; //Injection de dépendance pour la BDD
+                    
                 });
 
             // In production, the Angular files will be served from this directory
