@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Events.Interfaces
 {
-    public interface IEventContext
+    public interface IEventContext //Interface qu'on utilisera pour charger le bon contexte de donnée
     {
         IMongoCollection<Models.Event> Events { get; }
     }

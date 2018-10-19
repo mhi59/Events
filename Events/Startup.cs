@@ -1,3 +1,5 @@
+using Events.Interfaces;
+using Events.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -36,6 +38,9 @@ namespace Events
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            services.AddTransient<IEventContext, EventContext>(); //Ajoute une injection pour avoir l'EventContext
+            services.AddTransient<IEventRepository, EventRepository>(); //Ajoute une injection pour l'accès à Event Repository
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

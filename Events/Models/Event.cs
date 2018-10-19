@@ -10,7 +10,7 @@ namespace Events.Models
     public class Event
     {
         [BsonId]
-        public ObjectId Id { get; set; }
+        public ObjectId Id { get; set; } //Mongo générera lui-même un Id unique
 
         public string Theme { get; set; }
 
