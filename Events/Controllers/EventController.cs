@@ -31,9 +31,9 @@ namespace Events.Controllers
 
         // GET: api/Event/5
         [HttpGet("{id}", Name = "Get")]
-        public async Task<IActionResult> Get(ObjectId id)
+        public async Task<IActionResult> Get(string id)
         {
-            var _event = await _eventRepository.GetEvent(id);
+            var _event = await _eventRepository.GetEvent(ObjectId.Parse(id)); //On parse en ObjectId le string reçu
 
             if (_event == null)
                 return new NotFoundResult();
@@ -51,9 +51,9 @@ namespace Events.Controllers
 
         // PUT: api/Event/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(ObjectId id, [FromBody]Event _event)
+        public async Task<IActionResult> Put(string id, [FromBody]Event _event)
         {
-            var eventFromDb = await _eventRepository.GetEvent(id);
+            var eventFromDb = await _eventRepository.GetEvent(ObjectId.Parse(id));
 
             if (eventFromDb == null)
                 return new NotFoundResult();
@@ -67,14 +67,14 @@ namespace Events.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(ObjectId id)
+        public async Task<IActionResult> Delete(string id)
         {
-            var eventFromDb = await _eventRepository.GetEvent(id);
+            var eventFromDb = await _eventRepository.GetEvent(ObjectId.Parse(id));
 
             if (eventFromDb == null)
                 return new NotFoundResult();
 
-            await _eventRepository.Delete(id);
+            await _eventRepository.Delete(ObjectId.Parse(id));
 
             return new OkResult();
         }
