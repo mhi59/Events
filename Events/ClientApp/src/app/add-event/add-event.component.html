@@ -1,0 +1,42 @@
+<div class="col-12">
+    <h2>Micropole's Events</h2>
+    <br>
+    <h4>Ajouter un évènement</h4>
+    <div class="example-container">   
+        <mat-form-field
+        [hideRequiredMarker]="options.value.hideRequired"
+        [floatLabel]="options.value.floatLabel">
+      <mat-select required>
+        <mat-option>-- None --</mat-option>
+        <mat-option value="option">Option</mat-option>
+      </mat-select>
+      <mat-label><mat-icon>Choisissez un </mat-icon> <b> Thème</b></mat-label>
+    </mat-form-field>
+    <div class="example-container">   
+        <mat-form-field
+        [hideRequiredMarker]="options.value.hideRequired"
+        [floatLabel]="options.value.floatLabel">
+      <mat-select required>
+        <mat-option>-- None --</mat-option>
+        <mat-option value="option">Option</mat-option>
+      </mat-select>
+      <mat-label><mat-icon>Sélectionnez un </mat-icon> <b> Evènement</b></mat-label>
+    </mat-form-field>
+    
+        <mat-form-field
+            [hideRequiredMarker]="options.value.hideRequired"
+            [floatLabel]="options.value.floatLabel">
+          <input matInput placeholder="Simple placeholder" required>
+        </mat-form-field>
+      
+        <mat-form-field [floatLabel]="options.value.floatLabel">
+          <mat-label>Both a label and a placeholder</mat-label>
+          <input matInput placeholder="Simple placeholder">
+        </mat-form-field>
+      
+        
+      </div>
+      
+</div>
+
+
