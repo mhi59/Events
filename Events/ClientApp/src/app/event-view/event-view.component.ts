@@ -20,7 +20,6 @@ export class EventViewComponent implements OnInit {
   eventSubscription: Subscription;
   
   constructor(private eventService: EventService) {
-     this.eventService.getEventsFromServer();
    }
 
 
@@ -30,8 +29,14 @@ export class EventViewComponent implements OnInit {
       (events: any[]) => {
         this.events = events;
       }      
+      
     );
     this.eventService.emitEventsSubject();
+
+  }
+
+  onFetch() {
+    this.eventService.getEventsFromServer();
   }
 
 }

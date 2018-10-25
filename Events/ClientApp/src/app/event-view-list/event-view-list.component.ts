@@ -8,12 +8,11 @@ import { Component, OnInit, Input } from '@angular/core';
 export class EventViewListComponent implements OnInit {
   @Input() theme: string;
   @Input() sousTheme: string;
-  @Input() date: Date;
-  @Input() commentaire: string;
+  @Input() date: string;
+  @Input() info: string;
   @Input() id: string;
   @Input() index: number;
 
-  selected = 'option2';
 
   constructor() { }
 

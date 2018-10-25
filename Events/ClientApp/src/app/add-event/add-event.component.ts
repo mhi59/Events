@@ -2,6 +2,7 @@ import { EventService } from './../service/event.service';
 import { Component, OnInit, Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable()
 @Component( {
@@ -19,7 +20,7 @@ export class AddEventComponent implements OnInit
 
 
 
-  constructor ( fb: FormBuilder, private eventService: EventService )
+  constructor ( fb: FormBuilder, private eventService: EventService, private router: Router )
   {
     this.options = fb.group( {
       hideRequired: false,
@@ -44,7 +45,10 @@ export class AddEventComponent implements OnInit
     const theme = form.value['theme'];
     const sousTheme = form.value['sousTheme'];
     const date = form.value['date'];
-    const commentaire = form.value['commentaire'];
+    const info = form.value['info'];
+    this.eventService.addEvent(theme, sousTheme, date, info);
+    this.eventService.emitEventsSubject();
+    this.router.navigate(['/events']);
   }
 
   onSousThemeSelected (): any[] // En fonction du choix du Select Thème, on alimente le tableeau des sous-thèmes

@@ -25,6 +25,7 @@ namespace Events.Controllers
         // GET: api/Event
         [HttpGet]
         public async Task<IActionResult> Get()
+
         {
             return new ObjectResult(await _eventRepository.GetAllEvents());
         }

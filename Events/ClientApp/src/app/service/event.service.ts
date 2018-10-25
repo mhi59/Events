@@ -1,6 +1,7 @@
 import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { isDate } from '@angular/common/src/i18n/format_date';
 
 @Injectable()
 export class EventService
@@ -22,16 +23,34 @@ export class EventService
     ]
         ;
 
-    emitsousThemeSubject ()
+    emitsousThemeSubject () // On 'émet' le tableau des sous thèmes
     {
         this.sousThemeSubject.next( this.eventsSousTheme );
     }
 
-    emitEventsSubject() {
-        this.eventSubject.next(this.events);
+    emitEventsSubject () // On 'émet' le tableau des Events   
+    {
+        this.eventSubject.next( this.events );
     }
 
-    getEventsFromServer ()
+    addEvent ( theme: string, sousTheme: string, date: Date, info: string )
+    {  // Ajout d'un évènement au tableau events
+        const eventObject = {
+            theme: '',
+            sousTheme: '',
+            date: new Date().toLocaleDateString(),
+            info: ''
+        };
+        eventObject.theme = theme;
+        eventObject.sousTheme = sousTheme;
+        eventObject.date = date.toLocaleDateString();
+        eventObject.info = info;
+        this.events.push( eventObject );
+        this.emitEventsSubject();
+        this.saveEventsToServer();
+    }
+
+    getEventsFromServer ()   // Récupération de tous les Events sur le Server
     {
         this.httpClient
             .get<any[]>( 'https://localhost:44320/api/Event' )
@@ -41,9 +60,26 @@ export class EventService
                     this.events = response;
                     this.emitEventsSubject();
                 },
-                (error) => {
-                    console.log('Erreur de chargement');
+                ( error ) =>
+                {
+                    console.log( 'Erreur de chargement' );
                 }
-            )
+            );
+    }
+
+    saveEventsToServer ()
+    { // Sauvegarde du dernier ajout d'Event sur le serveur
+        this.httpClient
+            .post( 'https://localhost:44320/api/Event', this.events[ this.events.length - 1 ] )
+            .subscribe(
+                () =>
+                {
+                    alert( 'Enregistrement terminé' );
+                },
+                ( error ) =>
+                {
+                    console.log( 'Erreur de sauvegarde' + error );
+                }
+            );
     }
 }

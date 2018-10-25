@@ -18,13 +18,13 @@
     </mat-form-field>
     <label>Du &nbsp;</label>
     <mat-form-field style="margin-right: 1em">
-        <input matInput [matDatepicker]="picker" placeholder="Choisir une date" style="">
+        <input matInput [matDatepicker]="picker" placeholder="Choisir une date" >
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
     <label>Au &nbsp;</label>
     <mat-form-field>
-        <input matInput [matDatepicker]="picker2" placeholder="Choisir une date" style="">
+        <input matInput [matDatepicker]="picker2" placeholder="Choisir une date">
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
     </mat-form-field>
@@ -35,7 +35,8 @@
                              [theme]="event.theme"
                              [sousTheme]="event.sousTheme"
                              [date]="event.date"
-                             [commentaire]="event.commentaire"
+                             [info]="event.info"
                              [id]="event.id"></app-event-view-list>
     </ul>
+    <button class='btn btn-primary' (click) = "onFetch()">Charger</button>
 </div>
