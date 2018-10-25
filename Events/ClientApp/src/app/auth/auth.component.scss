@@ -1,0 +1,26 @@
+.example-container {
+    display:flex;
+    flex-direction: column;
+  }
+
+  .example-right-align {
+    text-align: right;
+  }
+  
+  input.example-right-align::-webkit-outer-spin-button,
+  input.example-right-align::-webkit-inner-spin-button {
+    display: none;
+  }
+  
+  input.example-right-align {
+    -moz-appearance: textfield;
+  }
+
+  h2{
+    margin-bottom: 2em;
+  }
+  
+  form{
+    margin-bottom: 1em;
+  }
+

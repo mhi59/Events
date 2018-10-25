@@ -2,8 +2,7 @@
 [ngClass]="{'list-group-item': true}"
               >
   <div class="d-flex justify-content-between">
-    <h4>Evènement: Peu importe </h4>  <div>Date: Aujourd'hui </div>
+    <h4>Evènement: {{sousTheme}} </h4>  <div>Date: {{date | date: 'shortDate' }} </div>
   </div>
-  <div><span style="font-weight: bold">Info: </span>jsdhdmhmsdc fezshfc frfrffqf frrfeafq refaer fre<br>
-  jizfgififzibfi ezezf ezefz ezfezfezfez <br>jfiuze fef fezfez fezezffe </div>
+  <div><span style="font-weight: bold">Info: {{commentaire}}</span> </div>
 </li>

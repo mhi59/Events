@@ -15,13 +15,19 @@ import { EventViewListComponent } from './event-view-list/event-view-list.compon
 import { MatFormFieldModule, MatInputModule } from '@angular/material';
 import { AddEventComponent } from './add-event/add-event.component';
 import {MatRadioModule} from '@angular/material/radio';
+import { AuthComponent } from './auth/auth.component';
+import {MatIconModule} from '@angular/material/icon';
+import { EventService } from './service/event.service';
+import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     EventViewComponent,
     EventViewListComponent,
-    AddEventComponent
+    AddEventComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
@@ -37,9 +43,14 @@ import {MatRadioModule} from '@angular/material/radio';
     MatFormFieldModule,
     MatInputModule,
     MatRadioModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatInputModule,
+    MatIconModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    EventService
+  ],
   bootstrap: [AppComponent],
   exports: [MatButtonModule,
             MatCheckboxModule,

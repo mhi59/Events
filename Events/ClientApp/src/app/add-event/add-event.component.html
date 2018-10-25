@@ -1,42 +1,47 @@
 <div class="col-12">
-    <h2>Micropole's Events</h2>
-    <br>
-    <h4>Ajouter un évènement</h4>
-    <div class="example-container">   
-        <mat-form-field
-        [hideRequiredMarker]="options.value.hideRequired"
-        [floatLabel]="options.value.floatLabel">
-      <mat-select required>
-        <mat-option>-- None --</mat-option>
-        <mat-option value="option">Option</mat-option>
-      </mat-select>
-      <mat-label><mat-icon>Choisissez un </mat-icon> <b> Thème</b></mat-label>
-    </mat-form-field>
-    <div class="example-container">   
-        <mat-form-field
-        [hideRequiredMarker]="options.value.hideRequired"
-        [floatLabel]="options.value.floatLabel">
-      <mat-select required>
-        <mat-option>-- None --</mat-option>
-        <mat-option value="option">Option</mat-option>
-      </mat-select>
-      <mat-label><mat-icon>Sélectionnez un </mat-icon> <b> Evènement</b></mat-label>
-    </mat-form-field>
-    
-        <mat-form-field
-            [hideRequiredMarker]="options.value.hideRequired"
-            [floatLabel]="options.value.floatLabel">
-          <input matInput placeholder="Simple placeholder" required>
-        </mat-form-field>
-      
-        <mat-form-field [floatLabel]="options.value.floatLabel">
-          <mat-label>Both a label and a placeholder</mat-label>
-          <input matInput placeholder="Simple placeholder">
-        </mat-form-field>
-      
+  <h2>Micropole's Events</h2>
+  <br>
+  <h4>Ajouter un évènement</h4>
+
+
+
+  <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+    <div class="form-group example-container">
+
+      <mat-form-field [hideRequiredMarker]="options.value.hideRequired" [floatLabel]="options.value.floatLabel">
+        <mat-select class="form-control" required name="theme" ngModel [(ngModel)] = "themeSelected" >
+          <mat-option>-- None --</mat-option>
+          <mat-option value="rh" (click) = "onSousThemeSelected()">RH</mat-option>
+          <mat-option value="marketing" (click) = "onSousThemeSelected()">Marketing</mat-option>
+          <mat-option value="commerce" (click) = "onSousThemeSelected()">Commerce</mat-option>
+          <mat-option value="detente" (click) = "onSousThemeSelected()">Détente</mat-option>
+        </mat-select>
+        <mat-label>
+          <b> Thème</b>
+        </mat-label>
+      </mat-form-field>
+
+      <mat-form-field [hideRequiredMarker]="options.value.hideRequired" [floatLabel]="options.value.floatLabel">
+        <mat-select class="form-control" required name="sousTheme" ngModel>
+          <mat-option *ngFor="let sousThemes of sousTheme"
+                      value="{{sousThemes}}">{{sousThemes}}</mat-option>          
+        </mat-select>
         
-      </div>
-      
+        <mat-label>
+          <b> Evènement</b>
+        </mat-label>
+      </mat-form-field>
+
+      <mat-form-field [hideRequiredMarker]="options.value.hideRequired" [floatLabel]="options.value.floatLabel">
+        <input class="form-control" matInput [matDatepicker]="picker" placeholder="Choisir une date" name="date" required ngModel>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field [hideRequiredMarker]="options.value.hideRequired" [floatLabel]="options.value.floatLabel">
+        <textarea class="form-control" matInput placeholder="Commentaire" required name="commentaire" ngModel></textarea>
+      </mat-form-field>
+    </div>
+    <button type="submit" mat-raised-button color="primary">Primary</button>
+  </form>
 </div>
-
-

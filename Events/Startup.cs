@@ -48,6 +48,12 @@ namespace Events
         {
             if (env.IsDevelopment())
             {
+                app.UseCors(builder => builder
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials());
+
                 app.UseDeveloperExceptionPage();
             }
             else

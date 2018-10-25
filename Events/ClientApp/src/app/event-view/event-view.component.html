@@ -1,39 +1,41 @@
-<div class="col-12">  
-    <h2>Micropole's Events</h2>    
-      <label>Thème &nbsp; </label>
-      <mat-form-field style="margin-right: 1em">
-          <mat-select [(value)]="selected">          
+<div class="col-12">
+    <h2>Micropole's Events</h2>
+    <label>Thème &nbsp; </label>
+    <mat-form-field style="margin-right: 1em">
+        <mat-select>
             <mat-option value="option1">Option 1</mat-option>
             <mat-option value="option2">Option 2</mat-option>
             <mat-option value="option3">Option 3</mat-option>
-          </mat-select>
-       </mat-form-field>
-      <label>Evènement &nbsp; </label>
-      <mat-form-field style="margin-right: 1em">
-          <mat-select [(value)]="selected">          
+        </mat-select>
+    </mat-form-field>
+    <label>Evènement &nbsp; </label>
+    <mat-form-field style="margin-right: 1em">
+        <mat-select>
             <mat-option value="option1">Option 1</mat-option>
             <mat-option value="option2">Option 2</mat-option>
             <mat-option value="option3">Option 3</mat-option>
-          </mat-select>
-       </mat-form-field>    
-       <label>Du &nbsp;</label>
-          <mat-form-field style="margin-right: 1em">              
-              <input matInput [matDatepicker]="picker" placeholder="Choisir une date" style="">
-              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-          </mat-form-field>
-          <label>Au &nbsp;</label>
-          <mat-form-field>              
-              <input matInput [matDatepicker]="picker2" placeholder="Choisir une date" style="">
-              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-              <mat-datepicker #picker2></mat-datepicker>
-          </mat-form-field>       
-</div>        
-
-<h1 style="text-align: center; font-style: italic; color: rgb(250, 116, 34);"> Les évènements RH</h1>
-<ul class="list-group">
- <app-event-view-list *ngFor="let food of foods; let i = index"
- [index]="i"></app-event-view-list>
-</ul>
-
-
+        </mat-select>
+    </mat-form-field>
+    <label>Du &nbsp;</label>
+    <mat-form-field style="margin-right: 1em">
+        <input matInput [matDatepicker]="picker" placeholder="Choisir une date" style="">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <label>Au &nbsp;</label>
+    <mat-form-field>
+        <input matInput [matDatepicker]="picker2" placeholder="Choisir une date" style="">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
+    <h1 style="text-align: center; font-style: italic; color: rgb(250, 116, 34);"> Les évènements RH</h1>
+    <ul class="list-group">
+        <app-event-view-list *ngFor="let event of events;
+                             let i = index" [index]="i"
+                             [theme]="event.theme"
+                             [sousTheme]="event.sousTheme"
+                             [date]="event.date"
+                             [commentaire]="event.commentaire"
+                             [id]="event.id"></app-event-view-list>
+    </ul>
+</div>

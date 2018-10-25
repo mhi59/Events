@@ -6,7 +6,13 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./event-view-list.component.scss']
 })
 export class EventViewListComponent implements OnInit {
+  @Input() theme: string;
+  @Input() sousTheme: string;
+  @Input() date: Date;
+  @Input() commentaire: string;
+  @Input() id: string;
   @Input() index: number;
+
   selected = 'option2';
 
   constructor() { }

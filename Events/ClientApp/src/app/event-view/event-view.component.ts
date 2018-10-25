@@ -1,3 +1,5 @@
+import { Subscription } from 'rxjs';
+import { EventService } from './../service/event.service';
 import { Component, OnInit, Input } from '@angular/core';
 
 
@@ -12,27 +14,24 @@ export interface Food {
   styleUrls: ['./event-view.component.scss']
 })
 
-export class EventViewComponent implements OnInit {
+export class EventViewComponent implements OnInit { 
 
-  selected = 'option2';
-  foods: Food[] = [
-    {value: 'steak-0', viewValue: 'Steak'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'},
-    {value: 'steak-0', viewValue: 'Steak'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'},
-    {value: 'steak-0', viewValue: 'Steak'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'},
-    {value: 'steak-0', viewValue: 'Steak'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'}
-  ];
+  events: any[];
+  eventSubscription: Subscription;
   
-  constructor() { }
+  constructor(private eventService: EventService) {
+     this.eventService.getEventsFromServer();
+   }
+
+
 
   ngOnInit() {
+    this.eventSubscription = this.eventService.eventSubject.subscribe(
+      (events: any[]) => {
+        this.events = events;
+      }      
+    );
+    this.eventService.emitEventsSubject();
   }
 
 }
