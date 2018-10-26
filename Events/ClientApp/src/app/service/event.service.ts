@@ -13,7 +13,7 @@ export class EventService
     sousThemeSubject = new Subject<any[]>();
     eventSubject = new Subject<any[]>();
 
-    private events: any[] = [];
+    private events: Event[] = [];
 
     private eventsSousTheme = [
         [ 'Arrivée', 'Départ', 'Suivie de mission', 'EAP', 'Entretien candidature' ],
@@ -35,15 +35,15 @@ export class EventService
 
     addEvent ( theme: string, sousTheme: string, date: Date, info: string )
     {  // Ajout d'un évènement au tableau events
-        const eventObject = {
+        const eventObject = {            
             theme: '',
             sousTheme: '',
-            date: new Date().toLocaleDateString(),
+            date: new Date(),
             info: ''
         };
         eventObject.theme = theme;
         eventObject.sousTheme = sousTheme;
-        eventObject.date = date.toLocaleDateString();
+        eventObject.date = date;
         eventObject.info = info;
         this.events.push( eventObject );
         this.emitEventsSubject();
@@ -82,4 +82,22 @@ export class EventService
                 }
             );
     }
+
+    deleteEventOnServer(id: string) {
+        this.httpClient
+        .delete('https://localhost:44320/api/Event/' + id)
+        .subscribe(
+            (response) => {
+                console.log(response);
+            }
+        );
+        this.emitEventsSubject();
+    }
+ 
+}
+class Event {      
+      theme: string;
+      sousTheme: string;
+      date: Date;
+      info: string;
 }

@@ -1,8 +1,12 @@
-<li [ngStyle]="{'background-color':index%2 === 0 ? 'rgb(250, 116, 34)' : 'rgba(250, 116, 34, 0.5)' }" 
-[ngClass]="{'list-group-item': true}"
-              >
+<li [ngStyle]="{'background-color':index%2 === 0 ? 'rgb(250, 116, 34)' : 'rgba(250, 116, 34, 0.5)' }" [ngClass]="{'list-group-item': true}">
   <div class="d-flex justify-content-between">
-    <h4>Evènement: {{sousTheme}} </h4>  <div>Date: {{date}} </div>
+    <h4>Evènement: {{sousTheme}} </h4>
+    <div>Date: {{date | amLocale:'fr' | amDateFormat: 'dddd Do MMMM YYYY'}} </div>
+    <!--Utilisation de moment.js pour le formatage de date-->
   </div>
-  <div><span style="font-weight: bold">Info: {{info}}</span> </div>
+  <p style="font-weight: bold ">Info: {{info}}</p>
+  <button class="btn btn-primary">Modifier</button>
+  <!--A modifier avec un *ngIf isAuth-->
+  <button class="btn btn-danger" (click)="onDeleteEvent()">Supprimer</button>
+  <!--A modifier avec un *ngIf isAuth-->
 </li>

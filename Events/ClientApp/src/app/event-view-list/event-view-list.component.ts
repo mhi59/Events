@@ -1,4 +1,7 @@
+import { Router } from '@angular/router';
+import { EventService } from './../service/event.service';
 import { Component, OnInit, Input } from '@angular/core';
+
 
 @Component({
   selector: 'app-event-view-list',
@@ -12,11 +15,21 @@ export class EventViewListComponent implements OnInit {
   @Input() info: string;
   @Input() id: string;
   @Input() index: number;
+  test: string;
 
 
-  constructor() { }
+  constructor(private eventService: EventService, private router: Router) { }
 
   ngOnInit() {
   }
 
+  onDeleteEvent() {
+    this.eventService.deleteEventOnServer(this.id);
+    this.eventService.emitEventsSubject();
+    this.router.navigate(['/events']);
+  }
+ 
+
 }
+
+

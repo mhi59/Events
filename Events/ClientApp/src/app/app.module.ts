@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import {MDBBootstrapModule} from 'angular-bootstrap-md';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCheckboxModule} from '@angular/material';
+import {MatButtonModule, MatCheckboxModule, MAT_DATE_LOCALE} from '@angular/material';
 import {MatSelectModule} from '@angular/material/select';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import {MatDatepickerModule, MatNativeDateModule} from '@angular/material';
@@ -19,7 +19,13 @@ import { AuthComponent } from './auth/auth.component';
 import {MatIconModule} from '@angular/material/icon';
 import { EventService } from './service/event.service';
 import { HttpClientModule } from '@angular/common/http';
+import localeFr from '@angular/common/locales/fr';
+import { registerLocaleData } from '@angular/common';
+import { MomentModule } from 'ngx-moment';
+import {MatDialogModule} from '@angular/material/dialog';
 
+
+registerLocaleData(localeFr, 'fr');
 
 @NgModule({
   declarations: [
@@ -46,10 +52,14 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     MatInputModule,
     MatIconModule,
-    HttpClientModule
+    HttpClientModule,
+    MomentModule,
+    MatDialogModule
   ],
   providers: [
-    EventService
+    EventService,
+    {provide: MAT_DATE_LOCALE, useValue: 'fr-FR'},
+    { provide: LOCALE_ID, useValue: 'fr' }
   ],
   bootstrap: [AppComponent],
   exports: [MatButtonModule,
