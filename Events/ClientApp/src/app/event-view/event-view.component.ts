@@ -1,42 +1,38 @@
 import { Subscription } from 'rxjs';
-import { EventService } from './../service/event.service';
 import { Component, OnInit, Input } from '@angular/core';
+import { DataService } from '../service/dataService';
+import { Model } from '../model/model-event';
 
 
-export interface Food {
-  value: string;
-  viewValue: string;
-}
 
-@Component({
+@Component( {
   selector: 'app-event-view',
   templateUrl: './event-view.component.html',
-  styleUrls: ['./event-view.component.scss']
-})
+  styleUrls: [ './event-view.component.scss' ]
+} )
 
-export class EventViewComponent implements OnInit { 
+export class EventViewComponent implements OnInit {
 
-  events: any[];
+  public events: Model[];
   eventSubscription: Subscription;
-  
-  constructor(private eventService: EventService) {
-   }
 
+constructor(private data: DataService) {}
 
+ngOnInit() {
+  this.eventSubscription = this.data.getEvents().subscribe(
+    (events) => this.events = events
+  );
+}
 
-  ngOnInit() {
-    this.eventSubscription = this.eventService.eventSubject.subscribe(
-      (events: any[]) => {
-        this.events = events;
-      }      
-      
-    );
-    this.eventService.emitEventsSubject();
+onFetch()
+{
+  this.data.getEvents().subscribe(
+    (events) => this.events = events
+  );
+}
 
-  }
-
-  onFetch() {
-    this.eventService.getEventsFromServer();
-  }
+ngOnDestroy() {
+  this.eventSubscription.unsubscribe();
+}
 
 }

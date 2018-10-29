@@ -1,8 +1,8 @@
-import { EventService } from './../service/event.service';
 import { Component, OnInit, Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { DataService } from '../service/dataService';
 
 @Injectable()
 @Component( {
@@ -20,7 +20,7 @@ export class AddEventComponent implements OnInit
 
 
 
-  constructor ( fb: FormBuilder, private eventService: EventService, private router: Router )
+  constructor ( fb: FormBuilder, private dataService: DataService, private router: Router )
   {
     this.options = fb.group( {
       hideRequired: false,
@@ -30,13 +30,13 @@ export class AddEventComponent implements OnInit
 
   ngOnInit ()
   {
-    this.sousThemeSubscription = this.eventService.sousThemeSubject.subscribe(
+    this.sousThemeSubscription = this.dataService.sousThemeSubject.subscribe(
       ( events: any[] ) =>
       {
         this.events = events;
       }
     );
-    this.eventService.emitsousThemeSubject();
+    this.dataService.emitsousThemeSubject();
   }
 
 
@@ -46,8 +46,7 @@ export class AddEventComponent implements OnInit
     const sousTheme = form.value['sousTheme'];
     const date = form.value['date'];
     const info = form.value['info'];
-    this.eventService.addEvent(theme, sousTheme, date, info);
-    this.eventService.emitEventsSubject();
+    this.dataService.addEvent(theme, sousTheme, date, info);
     this.router.navigate(['/events']);
   }
 

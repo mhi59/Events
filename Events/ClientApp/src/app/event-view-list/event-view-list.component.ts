@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
-import { EventService } from './../service/event.service';
 import { Component, OnInit, Input } from '@angular/core';
+import { DataService } from '../service/dataService';
 
 
 @Component({
@@ -18,15 +18,13 @@ export class EventViewListComponent implements OnInit {
   test: string;
 
 
-  constructor(private eventService: EventService, private router: Router) { }
+  constructor(private dataService: DataService, private router: Router) { }
 
   ngOnInit() {
   }
 
   onDeleteEvent() {
-    this.eventService.deleteEventOnServer(this.id);
-    this.eventService.emitEventsSubject();
-    this.router.navigate(['/events']);
+    this.dataService.deleteEventOnServer(this.id);    
   }
  
 

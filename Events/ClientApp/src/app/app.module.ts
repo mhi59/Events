@@ -1,3 +1,4 @@
+import { DataService } from './service/dataService';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID } from '@angular/core';
 import {MDBBootstrapModule} from 'angular-bootstrap-md';
@@ -17,12 +18,12 @@ import { AddEventComponent } from './add-event/add-event.component';
 import {MatRadioModule} from '@angular/material/radio';
 import { AuthComponent } from './auth/auth.component';
 import {MatIconModule} from '@angular/material/icon';
-import { EventService } from './service/event.service';
 import { HttpClientModule } from '@angular/common/http';
 import localeFr from '@angular/common/locales/fr';
 import { registerLocaleData } from '@angular/common';
 import { MomentModule } from 'ngx-moment';
 import {MatDialogModule} from '@angular/material/dialog';
+import { UpdateViewComponent } from './update-view/update-view.component';
 
 
 registerLocaleData(localeFr, 'fr');
@@ -33,7 +34,8 @@ registerLocaleData(localeFr, 'fr');
     EventViewComponent,
     EventViewListComponent,
     AddEventComponent,
-    AuthComponent
+    AuthComponent,
+    UpdateViewComponent
   ],
   imports: [
     BrowserModule,
@@ -57,9 +59,9 @@ registerLocaleData(localeFr, 'fr');
     MatDialogModule
   ],
   providers: [
-    EventService,
     {provide: MAT_DATE_LOCALE, useValue: 'fr-FR'},
-    { provide: LOCALE_ID, useValue: 'fr' }
+    { provide: LOCALE_ID, useValue: 'fr' },
+    DataService
   ],
   bootstrap: [AppComponent],
   exports: [MatButtonModule,
