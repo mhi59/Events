@@ -1,0 +1,46 @@
+<div class="col-12">
+    <h2>Micropole's Events &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2>
+    <br>
+    <h4>Modifier un évènement</h4>
+  
+  
+  
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+      <div class="form-group example-container">
+  
+        <mat-form-field [hideRequiredMarker]="options.value.hideRequired" [floatLabel]="options.value.floatLabel">
+          <mat-select class="form-control" required name="theme" ngModel [(ngModel)] = "themeParams" >
+            <mat-option>-- None --</mat-option>
+            <mat-option value="rh" (click) = "onSousThemeSelected()">RH</mat-option>
+            <mat-option value="marketing" (click) = "onSousThemeSelected()">Marketing</mat-option>
+            <mat-option value="commerce" (click) = "onSousThemeSelected()">Commerce</mat-option>
+            <mat-option value="detente" (click) = "onSousThemeSelected()">Détente</mat-option>
+          </mat-select>
+          <mat-label>
+            <b> Thème</b>
+          </mat-label>
+        </mat-form-field>
+  
+        <mat-form-field [hideRequiredMarker]="options.value.hideRequired" [floatLabel]="options.value.floatLabel">
+          <mat-select class="form-control" required name="sousTheme" ngModel >
+            <mat-option *ngFor="let sousThemes of sousThemeArray"
+                        value="sousThemes">{{sousThemes}}</mat-option>          
+          </mat-select>          
+          <mat-label>
+            <b> Evènement</b>
+          </mat-label>
+        </mat-form-field>
+  
+        <mat-form-field [hideRequiredMarker]="options.value.hideRequired" [floatLabel]="options.value.floatLabel">
+          <input class="form-control" matInput [matDatepicker]="picker" placeholder="Choisir une date" name="date" required ngModel  [(ngModel)] = "dateParams">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+  
+        <mat-form-field [hideRequiredMarker]="options.value.hideRequired" [floatLabel]="options.value.floatLabel">
+          <textarea class="form-control" matInput placeholder="Informations" required name="info" ngModel [(ngModel)] = "infoParams"></textarea>
+        </mat-form-field>
+      </div>
+      <button type="submit" mat-raised-button color="primary">Ajouter</button>
+    </form>
+  </div>

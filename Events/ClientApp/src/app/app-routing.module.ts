@@ -1,3 +1,4 @@
+import { UpdateViewComponent } from './update-view/update-view.component';
 import { AuthComponent } from './auth/auth.component';
 import { AddEventComponent } from './add-event/add-event.component';
 import { EventViewComponent } from './event-view/event-view.component';
@@ -8,7 +9,8 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   {path: 'events', component: EventViewComponent},
   {path: 'addEvent', component: AddEventComponent},
-  {path: 'auth', component: AuthComponent}
+  {path: 'auth', component: AuthComponent},
+  {path: 'update', component: UpdateViewComponent}
 ];
 
 @NgModule({

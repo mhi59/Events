@@ -5,7 +5,7 @@
     <!--Utilisation de moment.js pour le formatage de date-->
   </div>
   <p style="font-weight: bold ">Info: {{info}}</p>
-  <button class="btn btn-primary">Modifier</button>
+  <button class="btn btn-primary" (click)="onUpdateEvent()">Modifier</button>
   <!--A modifier avec un *ngIf isAuth-->
   <button class="btn btn-danger" (click)="onDeleteEvent()">Supprimer</button>
   <!--A modifier avec un *ngIf isAuth-->

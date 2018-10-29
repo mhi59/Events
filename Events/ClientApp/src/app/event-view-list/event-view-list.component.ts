@@ -24,9 +24,17 @@ export class EventViewListComponent implements OnInit {
   }
 
   onDeleteEvent() {
-    this.dataService.deleteEventOnServer(this.id);    
+    this.dataService.deleteEventOnServer(this.id);
   }
- 
+
+  onUpdateEvent() {
+    this.router.navigate(['/update'], {queryParams:
+                                        {id: this.id,
+                                        theme: this.theme,
+                                        sousTheme: this.sousTheme,
+                                        date: this.date,
+                                        info: this.info }});
+  }
 
 }
 

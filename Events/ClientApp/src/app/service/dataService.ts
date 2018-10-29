@@ -5,9 +5,10 @@ import { Model } from '../model/model-event';
 import { map } from 'rxjs/operators';
 
 @Injectable()
-export class DataService {
+export class DataService
+{
 
-    constructor(protected http: HttpClient) {}
+    constructor ( protected http: HttpClient ) { }
 
     sousThemeSubject = new Subject<any[]>();
 
@@ -26,10 +27,11 @@ export class DataService {
 
 
 
-    public getEvents() {
-        return this.http.get('https://localhost:44320/api/Event').pipe(
+    public getEvents(): Observable<Model[]>
+    {
+        return this.http.get( 'https://localhost:44320/api/Event' ).pipe(
             map(
-                (jsonArray: Object[]) => jsonArray.map(jsonItem => Model.fromJson(jsonItem))
+                ( jsonArray: Object[] ) => jsonArray.map( jsonItem => Model.fromJson( jsonItem ) )
             )
         );
     }
@@ -47,10 +49,27 @@ export class DataService {
         eventObject.date = date;
         eventObject.info = info;
         // this.events.push( eventObject );
-        this.saveEventsToServer(eventObject);
+        this.saveEventsToServer( eventObject );
     }
 
-    saveEventsToServer (eventObject: object)
+    updateEvent ( id: string, theme: string, sousTheme: string, date: Date, info: string )
+    {
+        const eventObject = {
+            theme: '',
+            sousTheme: '',
+            date: new Date,
+            info: ''
+        };
+
+        eventObject.theme = theme;
+        eventObject.sousTheme = sousTheme;
+        eventObject.date = date;
+        eventObject.info = info;
+
+        this.updateEventOnServer( eventObject, id );
+    }
+
+    saveEventsToServer ( eventObject: object )
     { // Sauvegarde du dernier ajout d'Event sur le serveur
         this.http
             .post( 'https://localhost:44320/api/Event', eventObject )
@@ -66,14 +85,32 @@ export class DataService {
             );
     }
 
-    deleteEventOnServer(id: string) {
+    deleteEventOnServer ( id: string )
+    {
         this.http
-        .delete('https://localhost:44320/api/Event/' + id)
+            .delete( 'https://localhost:44320/api/Event/' + id )
+            .subscribe(
+                ( response ) =>
+                {
+                    console.log( 'Réponse: ' + response );
+                    this.getEvents();
+                }
+            );
+    }
+
+    updateEventOnServer ( eventObject: Object, id: string )
+    {
+        this.http.put( 'https://localhost:44320/api/Event/' + id, eventObject )
         .subscribe(
-            (response) => {
-                console.log('Réponse: ' + response);
-                this.getEvents();
+            () => 
+            {
+                console.log('update terminé');
+            },
+            (error) => 
+            {
+                console.log('Erreur de sauvegarde' + error);
             }
-        );
+            )
+        )
     }
 }
