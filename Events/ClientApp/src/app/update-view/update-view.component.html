@@ -22,9 +22,9 @@
         </mat-form-field>
   
         <mat-form-field [hideRequiredMarker]="options.value.hideRequired" [floatLabel]="options.value.floatLabel">
-          <mat-select class="form-control" required name="sousTheme" ngModel >
+          <mat-select class="form-control" required name="sousTheme" ngModel [(ngModel)] = "sousThemeParams">
             <mat-option *ngFor="let sousThemes of sousThemeArray"
-                        value="sousThemes">{{sousThemes}}</mat-option>          
+                        [value]="sousThemes">{{sousThemes}}</mat-option>          
           </mat-select>          
           <mat-label>
             <b> Evènement</b>

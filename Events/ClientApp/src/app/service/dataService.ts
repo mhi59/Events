@@ -110,7 +110,6 @@ export class DataService
             {
                 console.log('Erreur de sauvegarde' + error);
             }
-            )
-        )
+            );
     }
 }

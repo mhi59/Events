@@ -22,6 +22,7 @@ ngOnInit() {
   this.eventSubscription = this.data.getEvents().subscribe(
     (events) => this.events = events
   );
+  
 }
 
 onFetch()

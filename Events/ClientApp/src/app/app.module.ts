@@ -24,6 +24,15 @@ import { registerLocaleData } from '@angular/common';
 import { MomentModule } from 'ngx-moment';
 import {MatDialogModule} from '@angular/material/dialog';
 import { UpdateViewComponent } from './update-view/update-view.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { BlankSampleComponent } from './blank-sample/blank-sample.component';
+
+
+
+
 
 
 registerLocaleData(localeFr, 'fr');
@@ -35,7 +44,8 @@ registerLocaleData(localeFr, 'fr');
     EventViewListComponent,
     AddEventComponent,
     AuthComponent,
-    UpdateViewComponent
+    UpdateViewComponent,
+    BlankSampleComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +66,11 @@ registerLocaleData(localeFr, 'fr');
     MatIconModule,
     HttpClientModule,
     MomentModule,
-    MatDialogModule
+    MatDialogModule,
+    ModalModule.forRoot(),
+    BsDropdownModule,
+    AccordionModule,
+    TabsModule
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'fr-FR'},

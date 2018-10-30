@@ -7,6 +7,17 @@
   <p style="font-weight: bold ">Info: {{info}}</p>
   <button class="btn btn-primary" (click)="onUpdateEvent()">Modifier</button>
   <!--A modifier avec un *ngIf isAuth-->
-  <button class="btn btn-danger" (click)="onDeleteEvent()">Supprimer</button>
+  <button class="btn btn-danger" (click)="openModal(template)">Supprimer</button>
   <!--A modifier avec un *ngIf isAuth-->
-</li>
+  <br>
+  <pre *ngIf="messageConfirmation !== ''" class="card card-block card-header">{{messageConfirmation}}</pre>  
+  <ng-template #template>
+    <div class="modal-body text-center">
+      <p>Êtes-vous sûr de vouloir supprimer l'Event {{theme}}</p>
+      <button type="button" class="btn btn-danger" (click)="confirm()">Oui</button>
+      <button type="button" class="btn btn-default" (click)="decline()">Annuler</button>
+    </div>    
+  </ng-template>
+
+
+ 

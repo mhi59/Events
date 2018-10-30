@@ -18,7 +18,7 @@ export class UpdateViewComponent implements OnInit {
   infoParams: string;
 
   sousThemeArray: any[] = []; // Tableau des sous-thème en fontion du thème selectionné dans le form
-  themeSelected = this.sousThemeParams; // Thème sélectionné dans le Select du Form
+  themeSelected: string;
   events: any[]; // Tableau des sous thèmes qu'on récupère depuis event.service
   sousThemeSubscription: Subscription; // Souscription au Subject dans event.service qui renvoi le tableau des events
   options: FormGroup;
@@ -82,11 +82,15 @@ export class UpdateViewComponent implements OnInit {
 
 
   ngOnInit() {
+    // On récupère les paramètres passés depuis event-viewList pour initialiser les valeurs à modifier
     this.idParams = this.routeActive.snapshot.queryParams['id'];
     this.themeParams = this.routeActive.snapshot.queryParams['theme'];
     this.sousThemeParams = this.routeActive.snapshot.queryParams['sousTheme'];
     this.dateParams = this.routeActive.snapshot.queryParams['date'];
     this.infoParams = this.routeActive.snapshot.queryParams['info'];
+
+    this.themeSelected = this.themeParams; // On récupère le theme pour initialiser le select avec les bons sous-thèmes
+    
 
     this.sousThemeSubscription = this.dataService.sousThemeSubject.subscribe(
       ( events: any[] ) =>
@@ -95,7 +99,9 @@ export class UpdateViewComponent implements OnInit {
       }
     );
     this.dataService.emitsousThemeSubject();
-    
+
+    this.onSousThemeSelected(); // On appelle cette méthode pour être sur le bon tableau de sous-thème
+    console.log(this.sousThemeParams)
   }
 
 }
