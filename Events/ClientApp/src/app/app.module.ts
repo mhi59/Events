@@ -29,6 +29,8 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { BlankSampleComponent } from './blank-sample/blank-sample.component';
+import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
+
 
 
 
@@ -70,7 +72,8 @@ registerLocaleData(localeFr, 'fr');
     ModalModule.forRoot(),
     BsDropdownModule,
     AccordionModule,
-    TabsModule
+    TabsModule,
+    ProgressbarModule
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'fr-FR'},

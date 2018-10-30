@@ -43,7 +43,7 @@ export class EventViewListComponent implements OnInit {
  
   confirm(): void {
     this.dataService.deleteEventOnServer(this.id);
-    this.messageConfirmation = 'Vous venez de supprimer l\'Event ' + this.theme;
+    this.messageConfirmation = 'Event supprimé';
     this.modalRef.hide();
 
     setTimeout(() => {

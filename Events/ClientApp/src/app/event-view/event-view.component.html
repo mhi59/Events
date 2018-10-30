@@ -1,19 +1,21 @@
 <div class="col-12">
     <h2>Micropole's Events</h2>
+
     <label>Thème &nbsp; </label>
     <mat-form-field style="margin-right: 1em">
-        <mat-select>
-            <mat-option value="option1">Option 1</mat-option>
-            <mat-option value="option2">Option 2</mat-option>
-            <mat-option value="option3">Option 3</mat-option>
+        <mat-select [(ngModel)] = "themeSelected">
+            <mat-option value="rh" (click) = "onSousThemeSelected()">RH</mat-option>
+            <mat-option value="marketing" (click) = "onSousThemeSelected()">Marketing</mat-option>
+            <mat-option value="commerce" (click) = "onSousThemeSelected()">Commerce</mat-option>
+            <mat-option value="detente" (click) = "onSousThemeSelected()">Détente</mat-option>
+
         </mat-select>
     </mat-form-field>
     <label>Evènement &nbsp; </label>
     <mat-form-field style="margin-right: 1em">
         <mat-select>
-            <mat-option value="option1">Option 1</mat-option>
-            <mat-option value="option2">Option 2</mat-option>
-            <mat-option value="option3">Option 3</mat-option>
+            <mat-option *ngFor="let sousThemes of sousTheme"
+                        value="sousTheme">{{sousThemes}}</mat-option>            
         </mat-select>
     </mat-form-field>
     <label>Du &nbsp;</label>
@@ -29,7 +31,7 @@
         <mat-datepicker #picker2></mat-datepicker>
     </mat-form-field>
     <h1 style="text-align: center; font-style: italic; color: rgb(250, 116, 34);"> Les évènements RH</h1>
-    <ul class="list-group">
+    <ul  class="list-group">
         <app-event-view-list *ngFor="let event of events;
                              let i = index" [index]="i"
                              [theme]="event.theme"
@@ -37,6 +39,6 @@
                              [date]="event.date"
                              [info]="event.info"
                              [id]="event.id"></app-event-view-list>
-    </ul>
+    </ul>    
     <button class='btn btn-primary' (click) = "onFetch()">Charger</button>
 </div>

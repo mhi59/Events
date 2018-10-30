@@ -25,17 +25,6 @@ export class DataService
         this.sousThemeSubject.next( this.eventsSousTheme );
     }
 
-
-
-    public getEvents(): Observable<Model[]>
-    {
-        return this.http.get( 'https://localhost:44320/api/Event' ).pipe(
-            map(
-                ( jsonArray: Object[] ) => jsonArray.map( jsonItem => Model.fromJson( jsonItem ) )
-            )
-        );
-    }
-
     addEvent ( theme: string, sousTheme: string, date: Date, info: string )
     {  // Ajout d'un évènement au tableau events
         const eventObject = {
@@ -50,6 +39,15 @@ export class DataService
         eventObject.info = info;
         // this.events.push( eventObject );
         this.saveEventsToServer( eventObject );
+    }
+
+    public getEvents(): Observable<Model[]>
+    {        
+        return this.http.get( 'https://localhost:44320/api/Event' ).pipe(
+            map(
+                ( jsonArray: Object[] ) => jsonArray.map( jsonItem => Model.fromJson( jsonItem ) )
+            )
+        );
     }
 
     updateEvent ( id: string, theme: string, sousTheme: string, date: Date, info: string )
