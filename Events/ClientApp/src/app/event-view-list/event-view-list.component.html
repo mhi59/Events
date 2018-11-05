@@ -1,4 +1,4 @@
-<li style="border-width: medium" [ngStyle]="{'border-color':index%2 === 0 ? getColor() : getColorWithOpacity() }" [ngClass]="{'list-group-item': true}">
+<li style="border-width: thick" [ngStyle]="{'border-color':index%2 === 0 ? getColor() : getColorWithOpacity() }" [ngClass]="{'list-group-item': true}">
   <div class="d-flex justify-content-between">
     <h4>Evènement: {{sousTheme}} </h4>
     <div>Date: {{date | amLocale:'fr' | amDateFormat: 'dddd Do MMMM YYYY'}} </div>
@@ -10,12 +10,13 @@
   <button class="btn btn-danger" (click)="openModal(template)">Supprimer</button>
   <!--A modifier avec un *ngIf isAuth-->
   <br>
-  <pre *ngIf="messageConfirmation !== ''" class="card card-block card-header">{{messageConfirmation}}</pre>  
+    
   <ng-template #template>
     <div class="modal-body text-center">
       <p>Êtes-vous sûr de vouloir supprimer l'Event {{sousTheme.toUpperCase()}} du {{date | amLocale: 'fr' | amDateFormat: 'dddd Do MMMM YYYY'}}</p>
       <button type="button" class="btn btn-danger" (click)="confirm()">Oui</button>
       <button type="button" class="btn btn-default" (click)="decline()">Annuler</button>
+      <pre *ngIf="messageConfirmation !== ''" class="card card-block card-header">{{messageConfirmation}}</pre>
     </div>    
   </ng-template>
 

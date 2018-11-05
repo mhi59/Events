@@ -22,12 +22,7 @@ export class EventViewListComponent implements OnInit {
   constructor(private dataService: DataService, private router: Router, private modalService: BsModalService) { }
 
 
-  ngOnInit() {
-  }
-
-  onDeleteEvent() {
-    this.dataService.deleteEventOnServer(this.id);
-  }
+  ngOnInit() {}
 
   onUpdateEvent() { // On envoie vers la vue update les paramètres de lEvent selectionné
     this.router.navigate(['/update'], {queryParams:
@@ -37,21 +32,16 @@ export class EventViewListComponent implements OnInit {
                                         date: this.date,
                                         info: this.info }});
   }
-  openModal(template: TemplateRef<any>) {
+  openModal(template: TemplateRef<any>) { // Fenêtre Model qui gére la supression
     this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
   }
  
-  confirm(): void {
+  confirm(): void { // Si Confirmation de supression on continue le processus de supression
     this.dataService.deleteEventOnServer(this.id);
-    this.messageConfirmation = 'Event supprimé';
-    this.modalRef.hide();
-
+    this.messageConfirmation = 'Event ' + this.sousTheme + ' supprimé';
     setTimeout(() => {
-      this.router.navigateByUrl('/blank', {skipLocationChange: true}) // Permet de recharger le composant en restant sur la même page
-      .then(() => 
-      this.router.navigate(['/events']));
+      this.modalRef.hide();
     }, 2000);
-
   }
 
   decline(): void {

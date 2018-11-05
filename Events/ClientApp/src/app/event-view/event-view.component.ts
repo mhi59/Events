@@ -1,4 +1,4 @@
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { Component, OnInit, Input } from '@angular/core';
 import { DataService } from '../service/dataService';
 import { Model } from '../model/model-event';
@@ -21,11 +21,11 @@ export class EventViewComponent implements OnInit
 
   public events: Model[]; // Tableau des évènements qu'on récupère depuis le service
   private arrayTampon: Model[]; // Permet de garder une copie du tableau d'events en cas de manipulation
-  eventSubscription: Subscription;
+  eventSubscription: Subscription; // Souscription au Subject eventSubject du dataService qui renvoie le tableau d'events
 
   eventsSousTheme: any[]; // Tableau des sous thèmes qu'on récupère depuis event.service
   sousTheme: any[] = []; // Tableau des sous-thème en fontion du thème selectionné dans le form
-  sousThemeSubscription: Subscription; // Souscription au Subject dans event.service qui renvoi le tableau des events
+  sousThemeSubscription: Subscription; // Souscription au Subject dans event.service qui renvoi le tableau des sous-thèmes
   themeSelected: string; // Thème selectionné dans le Select Thème permetant de choisir quel sous-thèmes afficher
 
   themeFiltered: string; // Contiendra le thème selectionné dna le Select correspondant
@@ -33,21 +33,23 @@ export class EventViewComponent implements OnInit
   startDateFiltered: Date; // Contiendra date de début pour le filtre
   endDateFiltered: Date; // Contiendra date de fin pour le filtre
 
-  filters: any;
+  filters: any; // Filtre du tableau d'events
 
-  constructor ( private dataService: DataService ) { }
+  constructor ( private dataService: DataService ) {}
 
   ngOnInit ()
   {
-
-    this.eventSubscription = this.dataService.getEvents().subscribe(
+    this.dataService.InitializeEvents(); // Lancement de InitializeEvents du DataService pour initialiser le tableau d'events
+    this.eventSubscription = this.dataService.eventSubject.subscribe(
       ( events ) =>
       {
         this.events = events;
         this.arrayTampon = events;
+      },
+      (error) => {
+        console.log('rien reçu')
       }
   );
-
 
     this.sousThemeSubscription = this.dataService.sousThemeSubject.subscribe(
       ( eventsSousTheme: any[] ) =>
@@ -61,9 +63,8 @@ export class EventViewComponent implements OnInit
 
   onFetch ()
   {
-    this.dataService.getEvents().subscribe(
-      ( events ) => this.events = events
-    );
+    this.dataService.emitEventSubject();
+    this.themeSelected = '';
   }
 
   onSousThemeSelected (): any[] // En fonction du choix du Select Thème, on alimente le tableeau des sous-thèmes
@@ -138,21 +139,23 @@ export class EventViewComponent implements OnInit
       sousTheme: [this.sousThemeFiltered]
     }
     this.events = this.eventsMultiFilter( this.events, this.filters ); // On appelle la méthode de filtre
+    
 
   
   }
 
   onChangeDate() {   
+
     this.events = this.arrayTampon;
-    this.events = this.events.filter((item: Model) =>
+  
+    this.events = this.arrayTampon.filter((item: Model) =>
     {      
-      console.log(new Date(item.date).getTime());
       return new Date(item.date).getTime() >= new Date(this.startDateFiltered).getTime() &&
              new Date(item.date).getTime() <= new Date(this.endDateFiltered).getTime();
     } );
   }
 
-  eventsMultiFilter ( eventArray: Model[], filters: any )
+  eventsMultiFilter ( eventArray: Model[], filters: any ) // Filtre multicritères
   {
 
     const filterKeys = Object.keys( filters );
