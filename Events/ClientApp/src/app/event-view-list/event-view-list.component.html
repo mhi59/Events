@@ -1,4 +1,4 @@
-<li [ngStyle]="{'background-color':index%2 === 0 ? 'rgb(250, 116, 34)' : 'rgba(250, 116, 34, 0.5)' }" [ngClass]="{'list-group-item': true}">
+<li style="border-width: medium" [ngStyle]="{'border-color':index%2 === 0 ? getColor() : getColorWithOpacity() }" [ngClass]="{'list-group-item': true}">
   <div class="d-flex justify-content-between">
     <h4>Evènement: {{sousTheme}} </h4>
     <div>Date: {{date | amLocale:'fr' | amDateFormat: 'dddd Do MMMM YYYY'}} </div>

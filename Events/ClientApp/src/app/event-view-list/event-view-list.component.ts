@@ -58,6 +58,24 @@ export class EventViewListComponent implements OnInit {
     this.modalRef.hide();
   }
 
+  getColor() {
+    switch (this.theme) {
+      case 'rh': return 'rgb(92, 79, 156)';
+      case 'marketing': return 'rgb(59, 136, 168)';
+      case 'commerce': return 'rgb(211, 7, 119)';
+      case 'detente': return 'rgb(118, 4, 66)';
+    }
+  }
+
+  getColorWithOpacity() {
+    switch (this.theme) {
+      case 'rh': return 'rgba(92, 79, 156, 0.9)';
+      case 'marketing': return 'rgba(59, 136, 168, 0.9)';
+      case 'commerce': return 'rgba(211, 7, 119, 0.9)';
+      case 'detente': return 'rgba(118, 4, 66, 0.9)';
+    }
+  }
+
 }
 
 

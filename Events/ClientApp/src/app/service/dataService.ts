@@ -11,6 +11,8 @@ export class DataService
     constructor ( protected http: HttpClient ) { }
 
     sousThemeSubject = new Subject<any[]>();
+    eventsArray = [];
+    eventSubject = new Subject<any[]>();
 
     private eventsSousTheme = [
         [ 'Arrivée', 'Départ', 'Suivie de mission', 'EAP', 'Entretien candidature' ],
@@ -41,13 +43,18 @@ export class DataService
         this.saveEventsToServer( eventObject );
     }
 
-    public getEvents(): Observable<Model[]>
+
+
+
+
+    public getEvents(): Observable<any[]>
     {        
         return this.http.get( 'https://localhost:44320/api/Event' ).pipe(
-            map(
-                ( jsonArray: Object[] ) => jsonArray.map( jsonItem => Model.fromJson( jsonItem ) )
+            map(( jsonArray: Object[] ) => jsonArray.map( jsonItem => Model.fromJson( jsonItem ), // On Transforme l'objet reçu en objet de type Model
+            jsonArray.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()) // On trie les dates par ordre descendant
             )
-        );
+            
+        ));
     }
 
     updateEvent ( id: string, theme: string, sousTheme: string, date: Date, info: string )
