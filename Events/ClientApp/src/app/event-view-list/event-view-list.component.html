@@ -13,7 +13,7 @@
     
   <ng-template #template>
     <div class="modal-body text-center">
-      <p>Êtes-vous sûr de vouloir supprimer l'Event {{sousTheme.toUpperCase()}} du {{date | amLocale: 'fr' | amDateFormat: 'dddd Do MMMM YYYY'}}</p>
+      <p>Êtes-vous sûr de vouloir supprimer l'Event {{sousTheme.toUpperCase()}} du {{date | amLocale: 'fr' | amDateFormat: 'dddd Do MMMM YYYY'}} ?</p>
       <button type="button" class="btn btn-danger" (click)="confirm()">Oui</button>
       <button type="button" class="btn btn-default" (click)="decline()">Annuler</button>
       <pre *ngIf="messageConfirmation !== ''" class="card card-block card-header">{{messageConfirmation}}</pre>

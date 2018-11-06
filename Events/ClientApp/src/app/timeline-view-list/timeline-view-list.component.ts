@@ -1,15 +1,18 @@
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DataService } from './../service/dataService';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal/';
 import { Component, OnInit, Input, TemplateRef } from '@angular/core';
-import { DataService } from '../service/dataService';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal/';
 
 @Component({
-  selector: 'app-event-view-list',
-  templateUrl: './event-view-list.component.html',
-  styleUrls: ['./event-view-list.component.scss']
+  selector: 'app-timeline-view-list',
+  templateUrl: './timeline-view-list.component.html',
+  styleUrls: ['./timeline-view-list.component.scss']
 })
-export class EventViewListComponent implements OnInit {
+export class TimelineViewListComponent implements OnInit {
+
   private _themeActivated = '';
+  DisplayedTheme:string;
   @Input() theme: string;
   @Input() sousTheme: string;
   @Input() date: string;
@@ -25,11 +28,28 @@ export class EventViewListComponent implements OnInit {
   modalRef: BsModalRef;
   messageConfirmation = '';
 
+ 
 
-  constructor(private dataService: DataService, private router: Router, private modalService: BsModalService) { }
+
+  constructor(private dataService: DataService, private router: Router, private modalService: BsModalService, private _formBuilder: FormBuilder) { }
 
 
-  ngOnInit() {}
+  ngOnInit() {
+    switch(this.theme) {
+      case 'rh': this.DisplayedTheme = 'RH';
+                 break;
+      case 'marketing': this.DisplayedTheme = 'Marketing';
+                  break;
+      case 'commerce': this.DisplayedTheme = 'Commerce';
+                  break;
+      case 'detente': this.DisplayedTheme = 'Détente';
+                  break;
+      default: this.DisplayedTheme = '';
+                   break;
+    }    
+  }
+
+  
 
   onUpdateEvent() { // On envoie vers la vue update les paramètres de lEvent selectionné
     this.router.navigate(['/update'], {queryParams:
@@ -74,5 +94,3 @@ export class EventViewListComponent implements OnInit {
   }
 
 }
-
-

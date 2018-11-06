@@ -13,9 +13,10 @@ export class DataService implements OnInit
     eventSubject = new Subject<Model[]>(); // Subject qui gerera le tableau d'évènement
     sousThemeSubject = new Subject<any[]>(); // Subject qui gerera le tableau des sous-thèmes
     private eventsArray: Model[] = []; // Tableau des évènements
-    eventSubscription: Subscription; // Récupère le résultat de la requête de getEvents()
+    private eventsArrayAfterDelete: Model[] = []; // Tableau des évènements après supression pour rester sur une page avec le thème en cours
+    isThemeActivated = false; // Vérifié si on est sur un thème en particulier après supression pour charger le tableau correspondant
 
-    
+    eventSubscription: Subscription; // Récupère le résultat de la requête de getEvents()
 
     private eventsSousTheme = [
         [ 'Arrivée', 'Départ', 'Suivie de mission', 'EAP', 'Entretien candidature' ],
@@ -36,8 +37,16 @@ export class DataService implements OnInit
         );
     }
 
-    emitEventSubject() { // On 'émet' une copie le tableau des events
+    emitEventSubject() { // On 'émet' une copie le tableau des events ou des events après supression
+
+    if(this.isThemeActivated)
+    {
+        this.eventSubject.next(this.eventsArrayAfterDelete.slice());
+        this.isThemeActivated = false;
+    } else
+    {
         this.eventSubject.next(this.eventsArray.slice());
+    }        
     }
 
     emitsousThemeSubject () // On 'émet' une copie le tableau des sous thèmes
@@ -103,14 +112,26 @@ export class DataService implements OnInit
             );
     }
 
-    deleteEventOnServer ( id: string ) // Supression d'un Event
+    deleteEventOnServer ( id: string, theme: string ) // Supression d'un Event
     {
+        if(theme !== undefined && theme !== '' && theme !== null)
+        {
+            this.isThemeActivated = true;
+        } else{
+            this.isThemeActivated = false;
+        }
+
         this.http
-            .delete( 'https://localhost:44320/api/Event/' + id )
+            .delete( 'https://localhost:44320/api/Event/' + id)
             .subscribe(
                 ( response ) =>
                 {
-                    this.InitializeEvents();
+                    const index = this.eventsArray.filter((event) => {
+                        return event.id !== id && event.theme === theme;
+                    });
+                    this.eventsArrayAfterDelete = index;
+                    this.emitEventSubject();
+                   // this.InitializeEvents();
                 }
             );
     }

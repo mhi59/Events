@@ -30,9 +30,10 @@
         <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
         <mat-datepicker #picker2></mat-datepicker>
     </mat-form-field>
-    <h1 [ngStyle]="{'color': getColor()}"> Les évènements {{themeSelected}}</h1>
+    <h1 [ngStyle]="{'color': getColor()}"> Les évènements {{DisplayedTheme}}</h1>
     <ul  class="list-group">
-        <app-event-view-list *ngFor="let event of events;
+        <app-event-view-list [themeActivated]="themeSelected"
+        *ngFor="let event of events;
                              let i = index" [index]="i"
                              [theme]="event.theme"
                              [sousTheme]="event.sousTheme"

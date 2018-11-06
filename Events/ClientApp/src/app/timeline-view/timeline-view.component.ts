@@ -1,25 +1,16 @@
-import { Subscription, Observable } from 'rxjs';
-import { Component, OnInit, Input } from '@angular/core';
-import { DataService } from '../service/dataService';
-import { Model } from '../model/model-event';
-import { map, filter } from 'rxjs/operators';
-import { from } from 'rxjs';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { Model } from './../model/model-event';
+import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
+import { DataService } from './../service/dataService';
+import { Component, OnInit } from '@angular/core';
 
-
-
-
-
-
-@Component( {
-  selector: 'app-event-view',
-  templateUrl: './event-view.component.html',
-  styleUrls: [ './event-view.component.scss' ]
-} )
-
-export class EventViewComponent implements OnInit
-{
-
+@Component({
+  selector: 'app-timeline-view',
+  templateUrl: './timeline-view.component.html',
+  styleUrls: ['./timeline-view.component.scss']
+})
+export class TimelineViewComponent implements OnInit {
   public events: Model[]; // Tableau des évènements qu'on récupère depuis le service
   private arrayTampon: Model[]; // Permet de garder une copie du tableau d'events en cas de manipulation
   eventSubscription: Subscription; // Souscription au Subject eventSubject du dataService qui renvoie le tableau d'events
@@ -37,7 +28,9 @@ export class EventViewComponent implements OnInit
 
   filters: any; // Filtre du tableau d'events
 
-  constructor ( private dataService: DataService, private router: Router ) {}
+  isLinear = false;
+  
+  constructor ( private dataService: DataService, private router: Router, private _formBuilder: FormBuilder ) {}
 
   ngOnInit ()
   {
@@ -208,5 +201,4 @@ export class EventViewComponent implements OnInit
   {
     this.eventSubscription.unsubscribe(); // On détruit la souscription à la destruction du composant
   }
-
 }
