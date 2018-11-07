@@ -33,6 +33,8 @@ import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 import { TimelineViewComponent } from './timeline-view/timeline-view.component';
 import { TimelineViewListComponent } from './timeline-view-list/timeline-view-list.component';
 import {MatStepperModule} from '@angular/material/stepper';
+import { DxLinearGaugeModule } from 'devextreme-angular';
+
 
 
 
@@ -80,7 +82,8 @@ registerLocaleData(localeFr, 'fr');
     AccordionModule,
     TabsModule,
     ProgressbarModule,
-    MatStepperModule
+    MatStepperModule,
+    DxLinearGaugeModule
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'fr-FR'},

@@ -27,8 +27,12 @@ export class TimelineViewComponent implements OnInit {
   endDateFiltered: Date; // Contiendra date de fin pour le filtre
 
   filters: any; // Filtre du tableau d'events
-
-  isLinear = false;
+  
+  rhArray: any[] = [];
+  marketingArray: any[] = [];
+  commerceArray: any[] = [];
+  detenteArray: any[] = [];
+  sortedArray: any[] = [];
   
   constructor ( private dataService: DataService, private router: Router, private _formBuilder: FormBuilder ) {}
 
@@ -40,6 +44,7 @@ export class TimelineViewComponent implements OnInit {
       {
         this.events = events;
         this.arrayTampon = events;
+        this.sortArray();
       },
       (error) => {
         console.log('Erreur' + error);
@@ -55,6 +60,27 @@ export class TimelineViewComponent implements OnInit {
     this.dataService.emitsousThemeSubject();
   }
 
+  sortArray() {  // Trie du tableau des events que je classe dans différents tableaux en fonction du thème puis que je regroupe dans un tableau trié
+    for (const event of this.events)
+     {
+        switch (event.theme) 
+        {
+          case 'rh': this.rhArray.push(event);
+          break;
+          case 'commerce': this.commerceArray.push(event);
+          break;
+          case 'marketing': this.marketingArray.push(event);
+          break;
+          case 'detente': this.detenteArray.push(event);
+          break;
+          default: break;
+        }
+     }
+     if (this.rhArray.length > 0)  {this.sortedArray.push(this.rhArray); }
+     if (this.commerceArray.length > 0)  {this.sortedArray.push(this.commerceArray); }
+     if (this.marketingArray.length > 0)  {this.sortedArray.push(this.marketingArray); }
+     if (this.detenteArray.length > 0)  {this.sortedArray.push(this.detenteArray); }
+  }
 
   onFetch ()
   {
