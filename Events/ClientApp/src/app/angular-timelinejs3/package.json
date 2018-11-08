@@ -1,0 +1,69 @@
+{
+  "_from": "angular-timelinejs3",
+  "_id": "angular-timelinejs3@0.2.3",
+  "_inBundle": false,
+  "_integrity": "sha1-PkTUi2k24E2cwADb9SAK1AJnwxc=",
+  "_location": "/angular-timelinejs3",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "angular-timelinejs3",
+    "name": "angular-timelinejs3",
+    "escapedName": "angular-timelinejs3",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/angular-timelinejs3/-/angular-timelinejs3-0.2.3.tgz",
+  "_shasum": "3e44d48b6936e04d9cc000dbf5200ad40267c317",
+  "_spec": "angular-timelinejs3",
+  "_where": "C:\\Users\\MBENAISSA\\source\\repos\\Events\\Events\\ClientApp",
+  "author": {
+    "name": "François Maturel",
+    "email": "francoismaturel@dijit.fr",
+    "url": "http://dijit.fr"
+  },
+  "bugs": {
+    "url": "https://github.com/fmaturel/angular-timelinejs3/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "angular": "~1.4.0",
+    "angular-route": "~1.4.0"
+  },
+  "deprecated": false,
+  "description": "A quick directive project for making AngularJS use TimelineJS3",
+  "devDependencies": {
+    "angular-mocks": "~1.4.0",
+    "grunt": "^1.0.1",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-connect": "^1.0.2",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-jshint": "^1.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-karma": "^2.0.0",
+    "grunt-newer": "^1.2.0",
+    "jasmine-core": "^2.4.1",
+    "jshint-stylish": "^2.2.0",
+    "karma": "^0.13.22",
+    "karma-jasmine": "^1.0.2",
+    "karma-phantomjs-launcher": "^1.0.0",
+    "load-grunt-tasks": "^3.5.0",
+    "serve-static": "^1.11.1",
+    "time-grunt": "^1.3.0"
+  },
+  "homepage": "https://github.com/fmaturel/angular-timelinejs3#readme",
+  "license": "MIT",
+  "name": "angular-timelinejs3",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fmaturel/angular-timelinejs3.git"
+  },
+  "version": "0.2.3"
+}

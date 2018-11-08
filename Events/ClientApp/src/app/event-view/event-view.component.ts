@@ -124,7 +124,7 @@ export class EventViewComponent implements OnInit
   }
 
   onThemeChange ( value: string )
-  {
+  { this.dataService.emitEventSubject() // Permet de récupérer un tableau à jour avec tous les events avant de filtrer
     this.events = this.arrayTampon; // On réinitialise le tableau events à l'original
     this.themeFiltered = value; // Récupération du thème selectionné à partir du Select Theme
     this.filters = { // Ici on ne filtre que le thème

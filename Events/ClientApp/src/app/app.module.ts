@@ -30,8 +30,7 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { BlankSampleComponent } from './blank-sample/blank-sample.component';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
-import { TimelineViewComponent } from './timeline-view/timeline-view.component';
-import { TimelineViewListComponent } from './timeline-view-list/timeline-view-list.component';
+
 import {MatStepperModule} from '@angular/material/stepper';
 
 
@@ -52,8 +51,7 @@ registerLocaleData(localeFr, 'fr');
     AuthComponent,
     UpdateViewComponent,
     BlankSampleComponent,
-    TimelineViewComponent,
-    TimelineViewListComponent
+   
   ],
   imports: [
     BrowserModule,

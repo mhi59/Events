@@ -45,6 +45,7 @@ export class DataService implements OnInit
         this.isThemeActivated = false;
     } else
     {
+        console.log('else')
         this.eventSubject.next(this.eventsArray.slice());
     }        
     }
@@ -72,7 +73,7 @@ export class DataService implements OnInit
     public getEvents()
     {        
         return this.http.get( 'https://localhost:44320/api/Event' ).pipe(
-            map(( jsonArray: Object[] ) => jsonArray.map( jsonItem => Model.fromJson( jsonItem ), // On Transforme l'objet reçu en objet de type Model
+            map(( jsonArray: any[] ) => jsonArray.map( jsonItem => Model.fromJson( jsonItem ), // On Transforme l'objet reçu en objet de type Model
             jsonArray.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()) // On trie les dates par ordre descendant
             )            
         ));
@@ -126,12 +127,15 @@ export class DataService implements OnInit
             .subscribe(
                 ( response ) =>
                 {
-                    const index = this.eventsArray.filter((event) => {
+                    const filter1 = this.eventsArray.filter((event) => { // Ce tableau contiendra les Events du même thème sauf l'Event supprimé
                         return event.id !== id && event.theme === theme;
                     });
-                    this.eventsArrayAfterDelete = index;
+                    const filter2 = this.eventsArray.filter((event) => { // Ce tableau contiendra tous les Events sauf celui supprimé
+                        return event.id !== id;
+                    });
+                    this.eventsArrayAfterDelete = filter1;
+                    this.eventsArray = filter2;
                     this.emitEventSubject();
-                   // this.InitializeEvents();
                 }
             );
     }
