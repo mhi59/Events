@@ -32,6 +32,8 @@ import { BlankSampleComponent } from './blank-sample/blank-sample.component';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 
 import {MatStepperModule} from '@angular/material/stepper';
+import { DxLinearGaugeModule } from 'devextreme-angular';
+
 
 
 
@@ -78,7 +80,8 @@ registerLocaleData(localeFr, 'fr');
     AccordionModule,
     TabsModule,
     ProgressbarModule,
-    MatStepperModule
+    MatStepperModule,
+    DxLinearGaugeModule
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'fr-FR'},
