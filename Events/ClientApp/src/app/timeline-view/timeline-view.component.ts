@@ -38,6 +38,7 @@ export class TimelineViewComponent implements OnInit {
 
   ngOnInit ()
   {
+    
     this.dataService.InitializeEvents(); // Lancement de InitializeEvents du DataService pour initialiser le tableau d'events
     this.eventSubscription = this.dataService.eventSubject.subscribe(
       ( events ) =>

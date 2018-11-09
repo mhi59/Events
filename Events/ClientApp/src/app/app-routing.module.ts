@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { EventViewListComponent } from './event-view-list/event-view-list.component';
+import { TimelineViewComponent } from './timeline-view/timeline-view.component';
 
 const routes: Routes = [
   {path: 'events', component: EventViewComponent},
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'update', component: UpdateViewComponent},
   {path: 'eventView', component: EventViewListComponent},
   {path: 'blank', component: BlankSampleComponent},
+  {path: 'timeline', component: TimelineViewComponent}
 ];
 
 @NgModule({

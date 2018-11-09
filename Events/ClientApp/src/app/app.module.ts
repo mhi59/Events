@@ -1,3 +1,5 @@
+import { TimelineViewListComponent } from './timeline-view-list/timeline-view-list.component';
+import { TimelineViewComponent } from './timeline-view/timeline-view.component';
 import { DataService } from './service/dataService';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, LOCALE_ID } from '@angular/core';
@@ -53,6 +55,8 @@ registerLocaleData(localeFr, 'fr');
     AuthComponent,
     UpdateViewComponent,
     BlankSampleComponent,
+    TimelineViewComponent,
+    TimelineViewListComponent
    
   ],
   imports: [
