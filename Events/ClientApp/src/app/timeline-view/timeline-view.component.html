@@ -32,15 +32,7 @@
   </mat-form-field>
 <h1 [ngStyle]="{'color': getColor()}"> Les évènements {{DisplayedTheme}}</h1>
     <ul  class="list-group">
-        <app-timeline-view-list [themeActivated]="themeSelected"
-        *ngFor="let event of sortedArray;
-                             let i = index" [index]="i"
-                             [theme]="event.theme"
-                             [sousTheme]="event.sousTheme"
-                             [date]="event.date"
-                             [info]="event.info"
-                             [id]="event.id"
-                             [sortedArray]="event"></app-timeline-view-list>
+        <app-timeline-view-list [themeActivated]="themeSelected"  [sortedArrayy]="sortedArray"></app-timeline-view-list>
     </ul>    
 
       
