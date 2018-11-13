@@ -81,8 +81,7 @@ export class TimelineViewComponent implements OnInit {
      if (this.commerceArray.length > 0)  {this.sortedArray.push(this.commerceArray); }
      if (this.marketingArray.length > 0)  {this.sortedArray.push(this.marketingArray); }
      if (this.detenteArray.length > 0)  {this.sortedArray.push(this.detenteArray); }
-     console.log(this.sortedArray.length)
-     console.log(this.sortedArray)
+     this.dataService.emitSortedArraySubject(this.sortedArray);
   }
 
   onFetch ()

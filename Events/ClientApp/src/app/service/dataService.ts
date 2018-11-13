@@ -12,6 +12,7 @@ export class DataService implements OnInit
 
     eventSubject = new Subject<Model[]>(); // Subject qui gerera le tableau d'évènement
     sousThemeSubject = new Subject<any[]>(); // Subject qui gerera le tableau des sous-thèmes
+    sortedArraySubject= new Subject<any[]>();
     private eventsArray: Model[] = []; // Tableau des évènements
     private eventsArrayAfterDelete: Model[] = []; // Tableau des évènements après supression pour rester sur une page avec le thème en cours
     isThemeActivated = false; // Vérifié si on est sur un thème en particulier après supression pour charger le tableau correspondant
@@ -53,6 +54,11 @@ export class DataService implements OnInit
     emitsousThemeSubject () // On 'émet' une copie le tableau des sous thèmes
     {
         this.sousThemeSubject.next( this.eventsSousTheme.slice());
+    }
+
+    emitSortedArraySubject(sortedArray: any[])
+    {
+        this.sortedArraySubject.next(sortedArray.slice());
     }
 
     addEvent ( theme: string, sousTheme: string, date: Date, info: string )

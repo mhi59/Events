@@ -1,0 +1,35 @@
+ .tl-slider-item-container h2 {
+    color: red !important;
+  }
+
+.tl-text p {
+  color: white !important;
+  }
+
+  .tl-timemarker .tl-timemarker-content-container .tl-timemarker-content.tl-timemarker-content-small .tl-timemarker-text h2.tl-headline {
+    color: rgb(48, 0, 130) !important;
+  }
+
+  .tl-timegroup .tl-timegroup-message {
+    color: rgb(48, 0, 130) !important;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+
+  .tl-slide {
+    background-image: url('images/imageMicropole.png') !important;
+  }
+
+  .tl-slidenav-previous .tl-slidenav-title, .tl-slidenav-next .tl-slidenav-title, .tl-slidenav-previous .tl-slidenav-description, .tl-slidenav-next .tl-slidenav-description, .slidenav-content-container.tl-slidenav-inverted .tl-slidenav-description {
+    color: white !important;
+    opacity: 0.8 !important;
+  }
+
+  .tl-timemarker .tl-timemarker-content-container .tl-timemarker-content .tl-timemarker-text h2.tl-headline, .tl-timemarker .tl-timemarker-content-container .tl-timemarker-content .tl-timemarker-text h2.tl-headline p {
+    color: rgb(48, 0, 130) !important;
+  }
+
+  .tl-menubar-button {
+    color: black !important;
+    background-color: rgba(48, 0, 130, 0.5) !important;
+  }
