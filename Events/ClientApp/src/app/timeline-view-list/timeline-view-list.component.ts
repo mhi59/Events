@@ -52,8 +52,8 @@ export class TimelineViewListComponent implements OnInit
   initializeTimeline ()
   {
     this.jsonEvent = { // On crée l'objet Json qu'on va lier à la timeline
-      'start_date': Date.now(),
       'scale': 'human',
+      'start_date': Date.now(),
       'title': {
         'text': {
           'headline': 'Les Events MICROPOLE'
@@ -63,15 +63,36 @@ export class TimelineViewListComponent implements OnInit
       ]
     };
 
+    let imageType: string;
+
     for ( let i = 0, j = 0; i < this.sortedArray.length; i++ ) // On parcours les tableau d'events du tableau sortedArray puis on crée des objets Json à insérer dans jsonEvent
     {
+      switch(this.sortedArray[i][0].theme)
+      {
+        case 'rh': imageType = '../../assets/images/imageRh.png';
+        break;
+        case 'marketing': imageType = '../../assets/images/imageMarketing.png';
+        break;
+        case 'commerce': imageType = '../../assets/images/imageCommerce.png';
+        break;
+        case 'detente': imageType = '../../assets/images/imageDetente.png';
+        break;
+        default: imageType = '';
+      }
+
       while ( j < this.sortedArray[ i ].length )
       {
+
         const jsonObject = {
+          'media': {
+            'url': imageType,
+            'thumbnail': imageType
+          },
           'start_date': {
-            'month': new Date( this.sortedArray[ i ][ j ].date ).getMonth(),
-            'day': new Date( this.sortedArray[ i ][ j ].date ).getDay(),
+            'month': new Date( this.sortedArray[ i ][ j ].date ).getMonth() + 1,
+            'day': new Date( this.sortedArray[ i ][ j ].date ).getDate(),
             'year': new Date( this.sortedArray[ i ][ j ].date ).getFullYear()
+            
           },
           'text': {
             'headline': this.sortedArray[ i ][ j ].sousTheme,
@@ -85,7 +106,7 @@ export class TimelineViewListComponent implements OnInit
       j = 0;
     }
     const timeline_json = JSON.stringify( this.jsonEvent ); // On transforme l'objet jsonEvent en chaîne JSON pour l'exploiter dans le script
-    const additionalOptions = '{default_bg_color: {r:0, g:0, b:0}, language: "fr", timenav_height: 300, start_at_slide: 4, slide_default_fade: "50%", dragging: true, duration: 1000, trackResize: true}';
+    const additionalOptions = '{trackResize: true, zoom_sequence: [1.5, 1.7, 1.9, 2.2, 2.4], default_bg_color: {r:0, g:0, b:0}, language: "fr", timenav_height: 500, optimal_tick_width: 80}';
 
     const s = this.renderer.createElement( 'script' ); // On crée le script à injecter pour ,instancier  la timeline
     s.type = 'text/javascript';

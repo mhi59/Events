@@ -1,5 +1,5 @@
  .tl-slider-item-container h2 {
-    color: red !important;
+    color: #d952ae !important;
   }
 
 .tl-text p {
@@ -11,13 +11,14 @@
   }
 
   .tl-timegroup .tl-timegroup-message {
-    color: rgb(48, 0, 130) !important;
+    color: black !important;
+    opacity: 0.5;
     text-transform: uppercase;
     font-weight: bold;
   }
 
   .tl-slide {
-    background-image: url('images/imageMicropole.png') !important;
+    background-image: url('../../assets/images/imageMicropole.png') !important;
   }
 
   .tl-slidenav-previous .tl-slidenav-title, .tl-slidenav-next .tl-slidenav-title, .tl-slidenav-previous .tl-slidenav-description, .tl-slidenav-next .tl-slidenav-description, .slidenav-content-container.tl-slidenav-inverted .tl-slidenav-description {
@@ -26,10 +27,73 @@
   }
 
   .tl-timemarker .tl-timemarker-content-container .tl-timemarker-content .tl-timemarker-text h2.tl-headline, .tl-timemarker .tl-timemarker-content-container .tl-timemarker-content .tl-timemarker-text h2.tl-headline p {
-    color: rgb(48, 0, 130) !important;
+    color: white !important;
   }
 
   .tl-menubar-button {
     color: black !important;
     background-color: rgba(48, 0, 130, 0.5) !important;
   }
+
+  .tl-timenav .tl-attribution {
+    visibility: hidden !important;
+  }
+
+  .tl-timeaxis .tl-timeaxis-content-container .tl-timeaxis-major .tl-timeaxis-tick {
+    color: black !important;
+    font-weight: bold !important;
+  }
+
+  .tl-timemarker .tl-timemarker-content-container .tl-timemarker-content .tl-timemarker-media-container .tl-timemarker-media {
+    opacity: 1 !important;
+    max-width: 30px !important;
+  }
+
+  .tl-timemarker .tl-timemarker-content-container .tl-timemarker-content .tl-timemarker-media-container {
+    max-width: 35px !important;
+    max-height: 35px !important;
+  }
+
+  [id^="depart"] .tl-timemarker-content, [id^='arrivee'] .tl-timemarker-content, [id^='suivi'] .tl-timemarker-content, [id^='eap'] .tl-timemarker-content, [id^='entretien'] .tl-timemarker-content {
+    background-color: rgba(92, 79, 156, 0.7) !important;
+  }
+
+  [id^="salon"] .tl-timemarker-content, [id^='forum'] .tl-timemarker-content, [id^='publicite'] .tl-timemarker-content, [id^='informations'] .tl-timemarker-content, [id^='presentation'] .tl-timemarker-content {
+    background-color: rgba(59, 136, 168, 0.7) !important;
+  }
+
+  [id^="debut"] .tl-timemarker-content, [id^='fin'] .tl-timemarker-content, [id^='rdv'] .tl-timemarker-content, {
+  
+    background-color: rgba(211, 7, 119, 0.7) !important;
+  }
+
+  [id^="afterwork"] .tl-timemarker-content, [id^='soiree'] .tl-timemarker-content {
+  
+    background-color: rgba(118, 4, 66, 0.7) !important;
+  }
+
+  .tl-timemarker .tl-timemarker-content-container {
+    max-height: 30px !important;  
+  }
+
+  .tl-timemarker-content-container .tl-timemarker-content-container-small {
+    max-height: 30px !important;
+  }
+
+  .tl-timemarker .tl-timemarker-content-container .tl-timemarker-content {
+    padding: 2px !important;
+  }
+
+  .tl-timegroup {
+    max-height: 150px !important;
+  }
+
+  .tl-timegroup .tl-timegroup-alternate {
+    max-height: 150px !important;
+  }
+
+  .tl-timeaxis-tick {
+    color: rgba(139, 79, 243, 0.8) !important
+  }
+
+
