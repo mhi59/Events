@@ -37,7 +37,7 @@ export class EventViewComponent implements OnInit
 
   filters: any; // Filtre du tableau d'events
 
-  constructor ( private dataService: DataService, private router: Router ) {}
+  constructor ( private dataService: DataService, private router: Router ) { }
 
   ngOnInit ()
   {
@@ -48,10 +48,11 @@ export class EventViewComponent implements OnInit
         this.events = events;
         this.arrayTampon = events;
       },
-      (error) => {
-        console.log('Erreur' + error);
+      ( error ) =>
+      {
+        console.log( 'Erreur' + error );
       }
-  );
+    );
 
     this.sousThemeSubscription = this.dataService.sousThemeSubject.subscribe(
       ( eventsSousTheme: any[] ) =>
@@ -65,10 +66,10 @@ export class EventViewComponent implements OnInit
 
   onFetch ()
   {
-    this.themeSelected = '';
+    this.themeSelected = undefined;
     this.startDateFiltered = undefined;
     this.endDateFiltered = undefined;
-    this.DisplayedTheme = '';
+    this.DisplayedTheme = undefined;
     this.dataService.emitEventSubject();
   }
 
@@ -124,26 +125,34 @@ export class EventViewComponent implements OnInit
   }
 
   onThemeChange ( value: string )
-  { this.dataService.emitEventSubject() // Permet de récupérer un tableau à jour avec tous les events avant de filtrer
+  {
+    this.dataService.emitEventSubject() // Permet de récupérer un tableau à jour avec tous les events avant de filtrer
     this.events = this.arrayTampon; // On réinitialise le tableau events à l'original
     this.themeFiltered = value; // Récupération du thème selectionné à partir du Select Theme
+    this.sousThemeFiltered = undefined;
     this.filters = { // Ici on ne filtre que le thème
       theme: [ this.themeFiltered ]
-    } 
-      this.events = this.eventsMultiFilter( this.events, this.filters ); // On appelle la méthode de filtre
+    }
+    this.events = this.eventsMultiFilter( this.events, this.filters ); // On appelle la méthode de filtre
 
-      switch(value) {
-        case 'rh': this.DisplayedTheme = 'RH';
-                   break;
-        case 'marketing': this.DisplayedTheme = 'Marketing';
-                    break;
-        case 'commerce': this.DisplayedTheme = 'Commerce';
-                    break;
-        case 'detente': this.DisplayedTheme = 'Détente';
-                    break;
-        default: this.DisplayedTheme = '';
-                     break;
-      }
+    switch ( value )
+    {
+      case 'rh': this.DisplayedTheme = 'RH';
+        break;
+      case 'marketing': this.DisplayedTheme = 'Marketing';
+        break;
+      case 'commerce': this.DisplayedTheme = 'Commerce';
+        break;
+      case 'detente': this.DisplayedTheme = 'Détente';
+        break;
+      default: this.DisplayedTheme = undefined;
+        break;
+    }
+
+    if ( this.startDateFiltered !== undefined || this.endDateFiltered !== undefined ) // On vérifie si une date n'est pas selectionnée pour bien appliquer le filtre
+    {
+      this.onChangeDate();
+    }
   }
 
   onSousThemeChange ( value: string )
@@ -152,45 +161,50 @@ export class EventViewComponent implements OnInit
     this.sousThemeFiltered = value; // Récupération du sous-thème selectionné à partir du Select sous-thème
 
     this.filters = { // Ici on filtre la le thème et le sous-thème
-      theme: [this.themeFiltered],
-      sousTheme: [this.sousThemeFiltered]
+      theme: [ this.themeFiltered ],
+      sousTheme: [ this.sousThemeFiltered ]
     }
     this.events = this.eventsMultiFilter( this.events, this.filters ); // On appelle la méthode de filtre
-    
 
-  
+    if ( this.startDateFiltered !== undefined || this.endDateFiltered !== undefined )
+    {
+      this.onChangeDate();
+    }
   }
 
-  onChangeDate() {   // Filtrage en fonction des dates
+  onChangeDate ()
+  {   // Filtrage en fonction des dates
 
-    this.events = this.arrayTampon; // On initialise le tableau à l'entrée
-    if(this.themeFiltered !== '' && this.themeFiltered !== null && this.themeFiltered !== undefined) // Si pas de thème indiqué on ne filtre pas selon le thème
+    if ( this.themeFiltered !== undefined )
     {
-      console.log('ici')
-    this.onThemeChange(this.themeFiltered);
+      this.events = this.eventsMultiFilter( this.arrayTampon, this.filters ); // Avant de filtrer par date on regarde si un theme est selectionné
+    }
+    if ( this.themeFiltered !== undefined && this.sousThemeFiltered !== undefined ) // Pareil pour le sousTheme
+    {
+      this.events = this.eventsMultiFilter( this.arrayTampon, this.filters );
     }
 
-    if (this.startDateFiltered !== undefined && this.endDateFiltered !== undefined) // Si startDate et endDate renseigné
+    if ( this.startDateFiltered !== undefined && this.endDateFiltered !== undefined ) // Si startDate et endDate renseigné
     {
-      this.events = this.events.filter((item: Model) =>
-      {      
-        return new Date(item.date).getTime() >= new Date(this.startDateFiltered).getTime() &&
-               new Date(item.date).getTime() <= new Date(this.endDateFiltered).getTime();
+      this.events = this.events.filter( ( item: Model ) =>
+      {
+        return new Date( item.date ).getTime() >= new Date( this.startDateFiltered ).getTime() &&
+          new Date( item.date ).getTime() <= new Date( this.endDateFiltered ).getTime();
       } );
-    } else if (this.startDateFiltered === undefined && this.endDateFiltered !== undefined) // si que endDate renseigné
+    } else if ( this.startDateFiltered === undefined && this.endDateFiltered !== undefined ) // si que endDate renseigné
     {
-      this.events = this.events.filter((item: Model) =>
-      {      
-        return new Date(item.date).getTime() <= new Date(this.endDateFiltered).getTime();
+      this.events = this.events.filter( ( item: Model ) =>
+      {
+        return new Date( item.date ).getTime() <= new Date( this.endDateFiltered ).getTime();
       } );
-    } else if (this.startDateFiltered !== undefined && this.endDateFiltered === undefined) // si que startDate renseigné
+    } else if ( this.startDateFiltered !== undefined && this.endDateFiltered === undefined ) // si que startDate renseigné
     {
-      this.events = this.events.filter((item: Model) =>
-      {      
-        return new Date(item.date).getTime() >= new Date(this.startDateFiltered).getTime();
+      this.events = this.events.filter( ( item: Model ) =>
+      {
+        return new Date( item.date ).getTime() >= new Date( this.startDateFiltered ).getTime();
       } );
-      
-    }    
+
+    }
   }
 
   eventsMultiFilter ( eventArray: Model[], filters: any ) // Filtre multicritères

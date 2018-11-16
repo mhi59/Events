@@ -31,6 +31,8 @@ export class TimelineViewListComponent implements OnInit
   @Input() index: number;
   @Input() sortedArray: any[];
 
+  dateArray: any[] = [];
+
 
   modalRef: BsModalRef;
   messageConfirmation = '';
@@ -67,16 +69,16 @@ export class TimelineViewListComponent implements OnInit
 
     for ( let i = 0, j = 0; i < this.sortedArray.length; i++ ) // On parcours les tableau d'events du tableau sortedArray puis on crée des objets Json à insérer dans jsonEvent
     {
-      switch(this.sortedArray[i][0].theme)
+      switch ( this.sortedArray[ i ][ 0 ].theme )
       {
         case 'rh': imageType = '../../assets/images/imageRh.png';
-        break;
+          break;
         case 'marketing': imageType = '../../assets/images/imageMarketing.png';
-        break;
+          break;
         case 'commerce': imageType = '../../assets/images/imageCommerce.png';
-        break;
+          break;
         case 'detente': imageType = '../../assets/images/imageDetente.png';
-        break;
+          break;
         default: imageType = '';
       }
 
@@ -92,25 +94,41 @@ export class TimelineViewListComponent implements OnInit
             'month': new Date( this.sortedArray[ i ][ j ].date ).getMonth() + 1,
             'day': new Date( this.sortedArray[ i ][ j ].date ).getDate(),
             'year': new Date( this.sortedArray[ i ][ j ].date ).getFullYear()
-            
+
           },
           'text': {
             'headline': this.sortedArray[ i ][ j ].sousTheme,
             'text': this.sortedArray[ i ][ j ].info
           },
-          'group': this.sortedArray[ i ][ j ].theme
+          'group': this.sortedArray[ i ][ j ].sousTheme
         };
         this.jsonEvent.events.push( jsonObject ); // On pour l'objet crée dans le tableau events de l'objet jsonEvent
+        this.dateArray.push( { date: new Date( this.sortedArray[ i ][ j ].date ).getTime(), object: jsonObject } ); // On pousse dans le tableau dateArray pour pouvoir choisir le bon slide à afficher après
         j++;
       }
       j = 0;
     }
     const timeline_json = JSON.stringify( this.jsonEvent ); // On transforme l'objet jsonEvent en chaîne JSON pour l'exploiter dans le script
-    const additionalOptions = '{trackResize: true, zoom_sequence: [1.5, 1.7, 1.9, 2.2, 2.4], default_bg_color: {r:0, g:0, b:0}, language: "fr", timenav_height: 500, optimal_tick_width: 80}';
+    const additionalOptions = '{trackResize: true, zoom_sequence: [1.5, 1.7, 1.9, 2.2, 2.4], default_bg_color: {r:0, g:0, b:0}, language: "fr", timenav_height: 500, optimal_tick_width: 50, timenav_position: "top", start_at_slide: ' + this.getStartSlide() + ' }';
 
     const s = this.renderer.createElement( 'script' ); // On crée le script à injecter pour ,instancier  la timeline
     s.type = 'text/javascript';
     s.text = 'timeline = new TL.Timeline(\'timeline-embed\', ' + timeline_json + ', ' + additionalOptions + ');'; // On instancie la timeline avec la chaîne JSON à exploiter
     this.renderer.appendChild( this.timeline.nativeElement, s ); // On injecte le script sur la page  */
   }
+
+  getStartSlide ()
+  { // Permet de se positionner sur un slide proche du jour courant
+
+    const dateNow = { date: new Date().getTime(), object: new Object() };
+    this.dateArray.push( dateNow );
+    this.dateArray.sort( ( a, b ) => a.date - b.date );
+    const objectToSearch = this.dateArray[ this.dateArray.indexOf( ( dateNow ) ) - 1 ].object; // On descend de 1 pour ne pas avoir de dépassement de tableau si aucun Event n'existe à une date ultérieure au jour courant
+    this.jsonEvent.events.sort((a, b) => a.start_date.month - b.start_date.month || a.start_date.day - b.start_date.day); // On trie par mois et par date du jour
+    return this.jsonEvent.events.indexOf( objectToSearch );
+  }
+
+
+
+
 }
