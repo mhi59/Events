@@ -1,5 +1,9 @@
+import { AuthService } from './../service/authService';
+import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import {FormControl, Validators} from '@angular/forms';
+import { FormControl, Validators, NgForm } from '@angular/forms';
+import { Observer, Subscription, Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-auth',
@@ -7,15 +11,31 @@ import {FormControl, Validators} from '@angular/forms';
   styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent implements OnInit {
-  email = new FormControl('', [Validators.required, Validators.email]);
   hide = true;
+  invalidLogin: boolean;
+  credentialsValidators: Subscription;
 
-  constructor() { }
+  constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
   }
 
-  getErrorMessage() {
-    return this.email.hasError('required') ? 'You must enter a value' : '';
+
+
+  onSubmit(form: NgForm) {
+    const credentials = JSON.stringify(form.value); // Donnée user et pass entrées
+    this.authService.connectToHost(credentials);
+    this.credentialsValidators = this.authService.connectSubject.subscribe( (response) => {
+      this.invalidLogin = response;
+      if (this.invalidLogin)
+      {
+        this.router.navigate(['/timeline']);
+      }
+    });
+  }
+
+  onLogOut()
+  {
+    this.authService.logOut();
   }
 }

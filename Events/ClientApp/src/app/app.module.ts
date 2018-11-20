@@ -1,3 +1,6 @@
+import { Authentication } from './service/authentication';
+import { AuthGuard } from './service/authGuard';
+import { AuthService } from './service/authService';
 import { TimelineViewListComponent } from './timeline-view-list/timeline-view-list.component';
 import { TimelineViewComponent } from './timeline-view/timeline-view.component';
 import { DataService } from './service/dataService';
@@ -20,7 +23,7 @@ import { AddEventComponent } from './add-event/add-event.component';
 import {MatRadioModule} from '@angular/material/radio';
 import { AuthComponent } from './auth/auth.component';
 import {MatIconModule} from '@angular/material/icon';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import localeFr from '@angular/common/locales/fr';
 import { registerLocaleData } from '@angular/common';
 import { MomentModule } from 'ngx-moment';
@@ -35,12 +38,12 @@ import { ProgressbarModule } from 'ngx-bootstrap/progressbar';
 
 import {MatStepperModule} from '@angular/material/stepper';
 import { DxLinearGaugeModule } from 'devextreme-angular';
+import { JwtModule } from '@auth0/angular-jwt';
+import { TokenInterceptor } from './service/tokenInterceptor';
 
-
-
-
-
-
+export function tokenGetter() {
+  return localStorage.getItem('access_token');
+}
 
 
 
@@ -85,12 +88,27 @@ registerLocaleData(localeFr, 'fr');
     TabsModule,
     ProgressbarModule,
     MatStepperModule,
-    DxLinearGaugeModule
+    DxLinearGaugeModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem('jwt');
+        },
+        whitelistedDomains: ['localhost:44320']
+      }
+    })
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'fr-FR'},
     { provide: LOCALE_ID, useValue: 'fr' },
-    DataService
+    DataService,
+    AuthService,
+    AuthGuard,
+    Authentication,
+    {provide: HTTP_INTERCEPTORS,
+     useClass: TokenInterceptor,
+     multi: true
+    }
   ],
   bootstrap: [AppComponent],
   exports: [MatButtonModule,

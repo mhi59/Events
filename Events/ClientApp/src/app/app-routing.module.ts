@@ -1,3 +1,4 @@
+import { AuthGuard } from './service/authGuard';
 import { BlankSampleComponent } from './blank-sample/blank-sample.component';
 import { UpdateViewComponent } from './update-view/update-view.component';
 import { AuthComponent } from './auth/auth.component';
@@ -10,13 +11,14 @@ import { EventViewListComponent } from './event-view-list/event-view-list.compon
 import { TimelineViewComponent } from './timeline-view/timeline-view.component';
 
 const routes: Routes = [
-  {path: 'events', component: EventViewComponent},
-  {path: 'addEvent', component: AddEventComponent},
+  {path: 'events', canActivate: [AuthGuard], component: EventViewComponent},
+  {path: 'addEvent', canActivate: [AuthGuard], component: AddEventComponent},
   {path: 'auth', component: AuthComponent},
-  {path: 'update', component: UpdateViewComponent},
-  {path: 'eventView', component: EventViewListComponent},
-  {path: 'blank', component: BlankSampleComponent},
-  {path: 'timeline', component: TimelineViewComponent}
+  {path: 'update', canActivate: [AuthGuard], component: UpdateViewComponent},
+  {path: 'eventView', canActivate: [AuthGuard], component: EventViewListComponent},
+  {path: 'blank', canActivate: [AuthGuard], component: BlankSampleComponent},
+  {path: 'timeline', canActivate: [AuthGuard], component: TimelineViewComponent},
+  {path: '', redirectTo: 'auth', pathMatch: 'full'}
 ];
 
 @NgModule({
