@@ -34,7 +34,6 @@ namespace Events
                         ValidateAudience = true,
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
-
                         ValidIssuer = "https://localhost:44320",
                         ValidAudience = "https://localhost:44320",
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"))
@@ -73,10 +72,11 @@ namespace Events
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseCors("EnableCORS");
-
             app.UseAuthentication();
 
+            app.UseCors("EnableCORS");
+
+            
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
@@ -100,6 +100,7 @@ namespace Events
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+
         }
     }
 }

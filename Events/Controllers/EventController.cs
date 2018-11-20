@@ -12,6 +12,7 @@ using MongoDB.Bson;
 namespace Events.Controllers
 {
     [Produces("application/json")]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class EventController : ControllerBase

@@ -7,10 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Events.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     public class CustomersController : Controller
     {
-        [HttpGet, Authorize]
+        [HttpGet]
         public IEnumerable<string> Get()
         {
             return new string[] { "John Doe", "Jane Doe" };

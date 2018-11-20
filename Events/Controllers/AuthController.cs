@@ -14,9 +14,9 @@ namespace Events.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthController : ControllerBase
+    public class AuthController : ControllerBase // Controller qui gère la connexion et l'attribution d'un token
     {
-        [HttpPost, Route("login")]
+        [HttpPost]
         public IActionResult Login([FromBody]LoginModel user)
         {
             if(user == null)
@@ -31,14 +31,13 @@ namespace Events.Controllers
 
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, user.UserName),
-                    new Claim(ClaimTypes.Role, "Manager")
+                    new Claim(ClaimTypes.Name, user.UserName)
                 };
 
                 var tokeOptions = new JwtSecurityToken(
-                    issuer: "http://localhost:44320",
-                    audience: "http://localhost:44320",
-                    claims: new List<Claim>(),
+                    issuer: "https://localhost:44320",
+                    audience: "https://localhost:44320",
+                    claims: claims,
                     expires: DateTime.Now.AddMinutes(5),
                     signingCredentials: signinCredentials
                     );
