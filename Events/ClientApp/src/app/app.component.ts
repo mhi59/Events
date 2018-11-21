@@ -3,18 +3,21 @@ import { EventViewComponent } from './event-view/event-view.component';
 import { Component, Injectable } from '@angular/core';
 import { DataService } from './service/dataService';
 
-@Component({
+@Component( {
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
-})
+  styleUrls: [ './app.component.scss' ]
+} )
 
 @Injectable()
-export class AppComponent {
+export class AppComponent
+{
 
-constructor(private router: Router) {}
+  constructor ( private router: Router ) { }
 
-  onEventsInit() {
-    this.router.navigateByUrl('/blank').then(() => this.router.navigate(['/events']));
+  onEventsInit ()
+  {
+    this.router.navigateByUrl( '/blank' ).then( () => this.router.navigate( [ '/events' ] ) );
+
   }
 }

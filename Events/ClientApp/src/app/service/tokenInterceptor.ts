@@ -9,7 +9,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
     constructor(public auth: AuthService, private jwtHelperService: JwtHelperService) {}
 
-    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>
+    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> // Ici on intercet toutes les requêtes http pour y coller le token et avoir accès normalement à l'API distante
     {
         request = request.clone({
             setHeaders: {

@@ -11,8 +11,7 @@ export class AuthService {
 
     connectToHost(credentials: any) {
 
-      setTimeout(() => {
-        this.http.post('https://localhost:44320/api/auth/login', credentials, { // On contact l'api pour récupérer le token
+      this.http.post('https://localhost:44320/api/auth', credentials, { // On contact l'api pour récupérer le token
           headers: new HttpHeaders({
           'Content-Type': 'application/json'
         })
@@ -25,8 +24,6 @@ export class AuthService {
         this.invalidLogin = true;
         this.emitConnectSubject();
       });
-      }, 3000);
-       
     }
 
     logOut() {
