@@ -35,23 +35,22 @@ namespace Events.Controllers
                 return BadRequest("Invalid client request");
             }
 
+            IEnumerable<Credentials> credentialsList = await _credentialsRepository.GetAllCredentials(); // Liste des users
 
-            IEnumerable<Credentials> credentialsList = await _credentialsRepository.GetAllCredentials();
+            var findCredential = credentialsList.FirstOrDefault(credential => credential.Username == user.Username);       // On cherche si un user correspond bien   
 
-            var findCredential = credentialsList.FirstOrDefault(credential => credential.Username == user.Username);         
-
-            if(!string.IsNullOrEmpty(findCredential.Username))
+            if(!string.IsNullOrEmpty(findCredential.Username)) // Si on a une correspondance
             {
-                var saltToByte = Convert.FromBase64String(findCredential.Salt);
+               var saltToByte = Convert.FromBase64String(findCredential.Salt); // On récupère le Salt qui était stocké en string dans un array de Byte pour s'en servir dans le hashage
 
-               string hashedPassword = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+               string hashedPassword = Convert.ToBase64String(KeyDerivation.Pbkdf2(  // Méthode de hashage
                password: user.Password,
                salt: saltToByte,
                prf: KeyDerivationPrf.HMACSHA1,
                iterationCount: 10000,
                numBytesRequested: 256 / 8));
 
-                if (findCredential.Password == hashedPassword)
+                if (findCredential.Password == hashedPassword) // Si on a une correspondance au niveau des mdp on crée et renvoie un token
                 {
                     var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecrEtKeyEventMicr0p0le"));
                     var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);

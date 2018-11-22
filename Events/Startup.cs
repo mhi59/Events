@@ -36,7 +36,7 @@ namespace Events
                         ValidateIssuerSigningKey = true,
                         ValidIssuer = "https://localhost:44320",
                         ValidAudience = "https://localhost:44320",
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecretKey@345"))
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecrEtKeyEventMicr0p0le"))
 
                     });
 
