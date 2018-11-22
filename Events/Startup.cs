@@ -59,6 +59,8 @@ namespace Events
 
             services.AddTransient<IEventContext, EventContext>(); //Ajoute une injection pour avoir l'EventContext
             services.AddTransient<IEventRepository, EventRepository>(); //Ajoute une injection pour l'accès à Event Repository
+            services.AddTransient<ICredentialsContext, CredentialsContext>();
+            services.AddTransient<ICredentialsRepository, CredentialsRepository>();
 
             services.AddCors(options =>
             {

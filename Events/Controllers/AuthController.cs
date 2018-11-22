@@ -47,12 +47,20 @@ namespace Events.Controllers
                 prf: KeyDerivationPrf.HMACSHA1,
                 iterationCount: 10000,
                 numBytesRequested: 256 / 8));
+            IEnumerable<Credentials> credentialsList = null;
+            try
+            {
+                 credentialsList = await _credentialsRepository.GetAllCredentials();
+            }
+            catch (Exception e)
+            {
+                var erreur = e;
+            }
 
-            var credentialsList = await _credentialsRepository.GetAllCredentials();
-          
-            var findCredential = credentialsList.FirstOrDefault(credential => credential.UserName == user.UserName);
 
-            if(!string.IsNullOrEmpty(findCredential.UserName))
+            var findCredential = credentialsList.FirstOrDefault(credential => credential.Username == user.Username);
+
+            if(!string.IsNullOrEmpty(findCredential.Username))
             {
                 if(findCredential.Password == hashedPassword)
                 {
@@ -61,7 +69,7 @@ namespace Events.Controllers
 
                     var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, user.UserName)
+                    new Claim(ClaimTypes.Name, user.Username)
                 };
                     var tokeOptions = new JwtSecurityToken(
                         issuer: "https://localhost:44320",
