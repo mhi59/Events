@@ -18,6 +18,7 @@ export class AuthService {
       }).subscribe((response) => {
         const token = (<any>response).token;
         localStorage.setItem('jwt', token);
+        console.log(token)
         this.invalidLogin = false;
         this.emitConnectSubject();
       }, (error) => {

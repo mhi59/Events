@@ -35,34 +35,23 @@ namespace Events.Controllers
                 return BadRequest("Invalid client request");
             }
 
-            byte[] salt = new byte[128 / 8];
-            using (var rng = RandomNumberGenerator.Create())
-            {
-                rng.GetBytes(salt);
-            }
 
-            string hashedPassword = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-                password: user.Password,
-                salt: salt,
-                prf: KeyDerivationPrf.HMACSHA1,
-                iterationCount: 10000,
-                numBytesRequested: 256 / 8));
-            IEnumerable<Credentials> credentialsList = null;
-            try
-            {
-                 credentialsList = await _credentialsRepository.GetAllCredentials();
-            }
-            catch (Exception e)
-            {
-                var erreur = e;
-            }
+            IEnumerable<Credentials> credentialsList = await _credentialsRepository.GetAllCredentials();
 
-
-            var findCredential = credentialsList.FirstOrDefault(credential => credential.Username == user.Username);
+            var findCredential = credentialsList.FirstOrDefault(credential => credential.Username == user.Username);         
 
             if(!string.IsNullOrEmpty(findCredential.Username))
             {
-                if(findCredential.Password == hashedPassword)
+                var saltToByte = Convert.FromBase64String(findCredential.Salt);
+
+               string hashedPassword = Convert.ToBase64String(KeyDerivation.Pbkdf2(
+               password: user.Password,
+               salt: saltToByte,
+               prf: KeyDerivationPrf.HMACSHA1,
+               iterationCount: 10000,
+               numBytesRequested: 256 / 8));
+
+                if (findCredential.Password == hashedPassword)
                 {
                     var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("superSecrEtKeyEventMicr0p0le"));
                     var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);

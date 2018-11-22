@@ -77,11 +77,11 @@ export class DataService implements OnInit
     }
 
     public getEvents()
-    {        
+    {
         return this.http.get( 'https://localhost:44320/api/Event' ).pipe(
             map(( jsonArray: any[] ) => jsonArray.map( jsonItem => Model.fromJson( jsonItem ), // On Transforme l'objet reçu en objet de type Model
             jsonArray.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()) // On trie les dates par ordre descendant
-            )            
+            )
         ));
     }
 
