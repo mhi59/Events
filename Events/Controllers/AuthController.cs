@@ -63,7 +63,7 @@ namespace Events.Controllers
                         issuer: "https://localhost:44320",
                         audience: "https://localhost:44320",
                         claims: claims,
-                        expires: DateTime.Now.AddMinutes(5),
+                        expires: DateTime.Now.AddMinutes(1440),
                         signingCredentials: signinCredentials
                         );
 

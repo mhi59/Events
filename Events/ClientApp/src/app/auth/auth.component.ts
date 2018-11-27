@@ -12,7 +12,7 @@ import { Observer, Subscription, Observable, of } from 'rxjs';
 })
 export class AuthComponent implements OnInit {
   hide = true;
-  invalidLogin: boolean;
+  validLogin = false;
   credentialsValidators: Subscription;
 
   constructor(private router: Router, private authService: AuthService) { }
@@ -26,12 +26,14 @@ export class AuthComponent implements OnInit {
     const credentials = JSON.stringify(form.value); // Donnée user et pass entrées
     this.authService.connectToHost(credentials);
     this.credentialsValidators = this.authService.connectSubject.subscribe( (response) => {
-      this.invalidLogin = response;
-      if (this.invalidLogin)
+      this.validLogin = response;
+      if (this.validLogin)
       {
+        console.log(this.validLogin)
         this.router.navigate(['/timeline']);
       }
     });
+    console.log(this.validLogin)
   }
 
   onLogOut()

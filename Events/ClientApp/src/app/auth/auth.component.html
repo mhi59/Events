@@ -14,17 +14,17 @@
           </mat-form-field>
 
           <mat-form-field>
-            <div *ngIf="invalidLogin" class="alert alert-danger">Nom d'utilisateur ou mot de passe incorrect</div>
+            <div *ngIf="validLogin" class="alert alert-danger">Nom d'utilisateur ou mot de passe incorrect</div>
             <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'" name="password" required ngModel>
             <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </mat-form-field>
 
         </div>
-        <button type="submit" mat-raised-button color="primary">Primary</button>
+        <button *ngIf="!validLogin" type="submit" mat-raised-button color="primary">Connexion</button>
+        <button *ngIf="validLogin" style="margin-left: 1em;" mat-raised-button color="warn" (click)= "onLogOut()">Déconnexion</button>
       </form>   
 
       <div class="d-flex justify-content-between">
-        <button class='btn btn-danger' (click)= "onLogOut()">Déconnexion</button>
         <a href="#">Inscription</a>
         <a href="#">Mot de passe oublié</a>
       </div>
