@@ -8,14 +8,26 @@
                 <li class="nav-item">
                         <a class="nav-link waves-light" mdbWavesEffect routerLink="addEvent">Ajouter un Event</a>
                     </li>              
-            <li class="nav-item">
+            <li *ngIf="!connected" class="nav-item">
                 <a class="nav-link waves-light" mdbWavesEffect routerLink="auth">Connexion</a>
+            </li>
+            <li *ngIf="connected" class="nav-item">
+                <a class="nav-link waves-light" mdbWavesEffect (click)="openModal(template)">Déconnexion</a>
             </li>
             <li class="nav-item">
                     <a class="nav-link waves-light" mdbWavesEffect routerLink="timeline">Timeline</a>
                 </li>           
         </ul>
         </links>
+
+        <ng-template #template>
+            <div class="modal-body text-center">
+              <p>Êtes-vous sûr de vouloir vous déconnecter ?</p>
+              <button type="button" class="btn btn-danger" (click)="confirm()">Oui</button>
+              <button type="button" class="btn btn-default" (click)="modalRef.hide()">Annuler</button>
+            </div>    
+          </ng-template>
+        
     </mdb-navbar>
 </header>  
 <main>   

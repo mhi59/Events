@@ -39,7 +39,7 @@ export class EventViewListComponent implements OnInit {
                                         date: this.date,
                                         info: this.info }});
   }
-  openModal(template: TemplateRef<any>) { // Fenêtre Model qui gére la supression
+  openModal(template: TemplateRef<any>) { // Fenêtre Modal qui gére la supression
     this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
   }
  

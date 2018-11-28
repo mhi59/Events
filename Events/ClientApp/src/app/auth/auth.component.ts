@@ -35,9 +35,4 @@ export class AuthComponent implements OnInit {
     });
     console.log(this.validLogin)
   }
-
-  onLogOut()
-  {
-    this.authService.logOut();
-  }
 }
