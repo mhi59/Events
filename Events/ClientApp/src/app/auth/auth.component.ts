@@ -12,12 +12,13 @@ import { Observer, Subscription, Observable, of } from 'rxjs';
 })
 export class AuthComponent implements OnInit {
   hide = true;
-  validLogin = false;
+  validLogin: boolean;
   credentialsValidators: Subscription;
 
   constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
+    this.validLogin = true;
   }
 
 
@@ -31,6 +32,8 @@ export class AuthComponent implements OnInit {
       {
         console.log(this.validLogin)
         this.router.navigate(['/timeline']);
+      } else{
+        this.validLogin = false;
       }
     });
     console.log(this.validLogin)

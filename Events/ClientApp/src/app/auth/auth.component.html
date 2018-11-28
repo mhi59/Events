@@ -14,7 +14,7 @@
           </mat-form-field>
 
           <mat-form-field>
-            <div *ngIf="validLogin" class="alert alert-danger">Nom d'utilisateur ou mot de passe incorrect</div>
+            <div *ngIf="!validLogin" class="alert alert-danger">Nom d'utilisateur ou mot de passe incorrect</div>
             <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'" name="password" required ngModel>
             <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </mat-form-field>

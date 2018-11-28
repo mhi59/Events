@@ -1,38 +1,8 @@
 <div class="col-12">
-  <h2>Micropole's Events</h2>
+    <h2>Micropole's Events&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2>
 
-  <label>Thème &nbsp; </label>
-  <mat-form-field style="margin-right: 1em">
-      <mat-select [(ngModel)] = "themeSelected" #themeValue (valueChange)= "onThemeChange(themeValue.value)">
-          <mat-option value="rh" (click) = "onSousThemeSelected()">RH</mat-option>
-          <mat-option value="marketing" (click) = "onSousThemeSelected()">Marketing</mat-option>
-          <mat-option value="commerce" (click) = "onSousThemeSelected()">Commerce</mat-option>
-          <mat-option value="detente" (click) = "onSousThemeSelected()">Détente</mat-option>
-
-      </mat-select>
-  </mat-form-field>
-  <label>Evènement &nbsp; </label>
-  <mat-form-field style="margin-right: 1em">
-      <mat-select [(ngModel)] = "sousThemeFiltered" #sousThemeValue (valueChange)= "onSousThemeChange(sousThemeValue.value)">
-          <mat-option *ngFor="let sousThemes of sousTheme"
-                      value= {{sousThemes}}>{{sousThemes}}</mat-option>            
-      </mat-select>
-  </mat-form-field>
-  <label>Du &nbsp;</label>
-  <mat-form-field style="margin-right: 1em">
-      <input matInput [matDatepicker]="picker" placeholder="Choisir une date" [(ngModel)] = "startDateFiltered" (ngModelChange)="onChangeDate()">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
-  <label>Au &nbsp;</label>
-  <mat-form-field>
-      <input matInput [matDatepicker]="picker2" placeholder="Choisir une date" [(ngModel)] = "endDateFiltered" (ngModelChange)="onChangeDate()">
-      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-      <mat-datepicker #picker2></mat-datepicker>
-  </mat-form-field>
-<h1 [ngStyle]="{'color': getColor()}"> Les évènements {{DisplayedTheme}}</h1>
-    <ul  class="list-group">
-        <app-timeline-view-list [themeActivated]="themeSelected"  [sortedArrayy]="sortedArray"></app-timeline-view-list>
-    </ul>    
-
-      
+    <h1 [ngStyle]="{'color': getColor()}"> Les évènements {{DisplayedTheme}}</h1>
+    <ul class="list-group">
+        <app-timeline-view-list [themeActivated]="themeSelected" [sortedArrayy]="sortedArray"></app-timeline-view-list>
+    </ul>
+</div>
